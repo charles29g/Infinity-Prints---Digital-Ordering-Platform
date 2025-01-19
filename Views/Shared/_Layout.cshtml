@@ -1,0 +1,323 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="DataTables/datatables.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
+    <link type="text/css" rel="stylesheet" href="~/Content/materialize.min.css" />
+    <base href="/" />
+
+    <script src="~/Scripts/materialize.min.js"></script>
+    <title>@ViewBag.Title</title>
+</head>
+<body ng-app="InfinityPrints" ng-controller="IPController">
+    <style>
+
+
+        @@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+    </style>
+
+    <style>
+        body {
+        }
+
+        nav {
+            background-color: white;
+            box-shadow: none;
+            outline: none;
+            border-bottom: 2px solid #6f0d4a;
+        }
+
+        .nav-content {
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 1vh
+        }
+
+            .nav-content .tabs {
+                display: flex;
+                justify-content: space-evenly;
+                width: 100%;
+                padding-left: 0px;
+                margin: 0;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                white-space: nowrap;
+            }
+
+                .nav-content .tabs .tab {
+                    flex-shrink: 0;
+                    text-align: center;
+                }
+
+                    .nav-content .tabs .tab a {
+                        display: block;
+                        padding: 10px 0;
+                        font-size: 17px;
+                        color: #6f0d4a !important;
+                    }
+
+                        .nav-content .tabs .tab a:hover,
+                        .nav-content .tabs .tab a:focus {
+                            color: #6f0d4a;
+                        }
+
+        @@media (max-width: 768px) {
+            .nav-content .tabs {
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+                justify-content: flex-start;
+            }
+
+                .nav-content .tabs .tab {
+                    flex-grow: 0;
+                    min-width: 120px;
+                }
+        }
+
+
+        #infinity {
+            margin-left: 10px;
+            font-weight: bold;
+            font-size: 40px;
+            color: #6f0d4a;
+        }
+
+        #prints {
+            font-weight: bold;
+            font-size: 35px;
+            color: black;
+        }
+
+        #signIn {
+            margin-right: 20px;
+            font-size: 20px;
+            color: black;
+        }
+
+        #txtuser {
+            font-weight: bold;
+            font-size: 20px;
+            color: #6f0d4a;
+            font-size: 25px;
+        }
+
+        #user {
+            font-weight: bold;
+            font-size: 20px;
+            color: black;
+            font-size: 25px;
+        }
+
+        #txtSign {
+            margin-left: 50px;
+            margin-right: 50px;
+            margin-top: 40px;
+            font-weight: bold;
+        }
+
+        .input-icons {
+            width: 100%;
+            margin-bottom: 20px;
+            color: #6f0d4a;
+            position: relative;
+        }
+
+            .input-icons i {
+                position: absolute;
+            }
+
+        .input-icon {
+            padding: 10px;
+            min-width: 40px;
+        }
+
+        .input-icon-right {
+            padding: 10px;
+            right: 0%;
+            cursor: pointer;
+        }
+        /*
+        .input-icon-right2 {
+            padding: 10px;
+            right: 2%;
+            cursor: pointer;
+
+        }*/
+
+        .input-icon-right2 {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            z-index: 10; /* Ensure it's clickable */
+        }
+
+
+
+        #email, #pass {
+            width: 100%;
+            padding: 10px 40px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        #fname, #lname, #phone, #email2, #uname, #pass2, #confpass {
+            padding: 10px 40px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+            width: 90%;
+        }
+
+        .button-container2 {
+            text-align: center;
+            width: 100%;
+        }
+
+        .checkbox-container {
+            text-align: center;
+            width: 100%;
+        }
+
+        .check:focus {
+            accent-color: rebeccapurple;
+            color: black;
+        }
+
+        #terms {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: black;
+        }
+
+        .btn, .btn-signup, .btn:focus {
+            border-radius: 50px;
+            background-color: #ac7b99;
+            width: 100px;
+            height: 35px;
+            text-transform: capitalize;
+            font-family: 'Trebuchet MS';
+            text-align: center;
+        }
+
+            .btn:hover {
+                background-color: #6f0d4a;
+            }
+
+        .resetpass {
+            text-align: center;
+            width: 90%;
+        }
+
+        .reset {
+            font-size: 13px;
+        }
+
+
+        .col-divider {
+            border-left: 3px solid #000;
+            height: 500px;
+        }
+
+
+        @@media only screen and (max-width: 768px) {
+            .col.s5, .col.s6 {
+                flex: 0 0 100%;
+                max-width: 100%;
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .col {
+                border-left: none !important;
+            }
+
+            .col-divider {
+                border-left: none !important;
+                border-bottom: 3px solid #000;
+                width: 80%;
+                margin-left: 40px;
+                height: auto !important;
+            }
+
+
+            .input-field {
+                width: 100%;
+                padding: 10px 40px;
+                box-sizing: border-box;
+            }
+
+            .helper-text {
+                font-size: 0.75rem;
+                padding-left: 20px;
+                top: 110%;
+                left: 0;
+                visibility: hidden;
+            }
+
+            .input-field.ng-invalid.ng-touched + .helper-text {
+                visibility: visible;
+            }
+
+            .input-icons {
+                margin-bottom: 30px;
+            }
+        }
+
+        .helper-text {
+            font-size: 0.7rem;
+            position: absolute;
+            color: #ff5722;
+            /*    visibility: hidden;*/
+            top: 100%;
+            left: 0;
+            padding-left: 15px;
+        }
+
+
+
+        .input-field.ng-invalid.ng-touched + .helper-text {
+            visibility: visible;
+        }
+    </style>
+
+
+    <div>
+        @RenderBody()
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+
+    <script src="~/Scripts/jquery-3.7.0.min.js"></script>
+
+    <script src="~/Scripts/angular.js"></script>
+
+    <script src="~/Scripts/ng-file-upload.min.js"></script>
+
+    <script src="~/Scripts/AngularJS/Module.js"></script>
+    <script src="~/Scripts/AngularJS/Service.js"></script>
+    <script src="~/Scripts/AngularJS/Controller.js"></script>
+    <script src="DataTables/datatables.min.js"></script>
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,649 @@
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+
+    <meta name="viewport" content="width=device-width" />
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="DataTables/datatables.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
+
+    <script src="~/Scripts/materialize.min.js"></script>
+    <title>@ViewBag.Title</title>
+    <style>
+
+
+        @@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+    </style>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            overflow-y: auto;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 60px;
+            white-space: nowrap;
+            height: 100%;
+            background-color: #6f0d4a;
+            color: white;
+            padding: 20px 0;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            transition: width 0.3s ease;
+        }
+
+            .sidebar h1 {
+                text-align: center;
+                font-size: 22px;
+                margin-bottom: 30px;
+                font-weight: bold;
+                visibility: hidden;
+                opacity: 0;
+                transition: visibility 0.3s ease, opacity 0.3s ease;
+            }
+
+            .sidebar ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+                .sidebar ul li {
+                    padding: 15px 9px;
+                    color: white;
+                    font-size: 16px;
+                    display: flex;
+                    align-items: center;
+                    cursor: pointer;
+                    transition: background-color 0.3s;
+                    white-space: nowrap;
+                }
+
+                    .sidebar ul li a {
+                        text-decoration: none;
+                        color: white;
+                        margin-left: 10px;
+                        flex-grow: 1;
+                        visibility: visible;
+                        opacity: 1;
+                        transition: visibility 0.3s ease, opacity 0.3s ease;
+                    }
+
+            .sidebar:hover {
+                width: 270px;
+            }
+
+                .sidebar:hover ul li a {
+                    visibility: visible;
+                    opacity: 1;
+                }
+
+                .sidebar:hover h1 {
+                    visibility: visible;
+                    opacity: 1;
+                }
+
+                .sidebar:hover ul li {
+                    text-align: left;
+                }
+
+            .sidebar ul li:hover {
+                color: #6f0d4a;
+                background-color: white;
+            }
+
+                .sidebar ul li:hover a {
+                    color: #6f0d4a !important;
+                    transition: color 0.3s ease;
+                }
+
+        .active {
+            background-color: white;
+            color: #6f0d4a;
+        }
+
+            .active a {
+                visibility: hidden;
+            }
+
+        .sidebar:hover .active a {
+            color: #6f0d4a !important;
+            visibility: visible;
+        }
+
+        .sidebar ul li a {
+            visibility: hidden;
+        }
+
+        .sidebar ul li i {
+            visibility: visible !important;
+        }
+
+        .sidebar:hover ul li a {
+            visibility: visible;
+        }
+
+
+        .active:hover {
+            background-color: white;
+        }
+
+        .main-content {
+            margin-left: 80px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            overflow-y: auto;
+            transition: margin-left 0.3s ease;
+        }
+
+        .sidebar:hover + .main-content {
+            margin-left: 250px;
+        }
+
+        nav {
+            color: #000000;
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-radius: 0 0 8px 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 20px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+            table th, table td {
+                padding: 12px;
+                text-align: center;
+                font-size: 14px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            table th {
+                background-color: #6f0d4a;
+                color: white;
+                text-transform: uppercase;
+                font-weight: bold;
+            }
+
+            table td {
+                border-bottom: 1px solid #ddd;
+                color: #333;
+            }
+
+            table tr:hover td {
+                background-color: #f1f1f1;
+            }
+
+            table tr:last-child td {
+                border-bottom: none;
+            }
+
+        div.dt-container div.dt-layout-row {
+            display: block !important;
+            justify-content: unset !important;
+            align-items: unset !important;
+            width: 100% !important;
+            margin: .75em 0 !important;
+        }
+
+            div.dt-container div.dt-layout-row div.dt-layout-cell.dt-layout-end {
+                justify-content: center !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+
+        div.dt-container .dt-paging .dt-paging-button:hover {
+            color: white !important;
+            border: 1px solid #6f0d4a !important;
+            background-color: #6f0d4a !important;
+            background: linear-gradient(to bottom, #6f0d4a 0%, #1a3d49 100%) !important;
+        }
+
+        div.dt-container .dt-paging .dt-paging-button.current {
+            color: black !important;
+        }
+
+            div.dt-container .dt-paging .dt-paging-button.current:hover {
+                color: white !important;
+            }
+
+        div.dt-container select.dt-input {
+            display: block !important;
+            color: #333 !important;
+            background-color: #ffffff !important;
+            height: 4vh !important;
+            font-size: small !important;
+        }
+
+        div.dt-container .dt-search input {
+            border: 1px solid #aaa !important;
+            border-radius: 3px !important;
+            padding: 5px !important;
+            background-color: transparent !important;
+            color: black !important;
+            margin-left: 3px !important;
+        }
+
+        div.dt-container .dt-length, div.dt-container .dt-search, div.dt-container .dt-info, div.dt-container .dt-processing, div.dt-container .dt-paging {
+            color: black !important;
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: -7vh;
+            left: 0;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            color: white;
+        }
+
+        .user-info {
+            margin-bottom: 12vh;
+        }
+
+        .user-name {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            visibility: hidden;
+        }
+
+        .sidebar:hover .user-name {
+            visibility: visible;
+        }
+
+        .user-name i {
+            margin-right: 8px;
+        }
+
+        .logout-btn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 10px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 92%;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            gap: 10px;
+        }
+
+            .logout-btn i {
+                font-size: 18px;
+            }
+
+            .logout-btn .user-name {
+                display: flex;
+                align-items: center;
+                margin: 0;
+            }
+
+                .logout-btn .user-name i {
+                    margin-right: 5px;
+                }
+
+        .sidebar:hover .logout-btn {
+            visibility: visible;
+        }
+
+            .sidebar:hover .logout-btn p {
+                visibility: visible;
+            }
+
+        .sidebar:hover .logout-btn {
+            visibility: visible
+        }
+
+        .logout-btn i {
+            margin-right: -44px;
+        }
+
+        .logout-btn:hover i {
+            margin-right: 8px;
+        }
+
+        .logout-btn p {
+            visibility: hidden;
+        }
+
+        .sidebar:hover .logout-btn {
+            color: white;
+        }
+
+        .logout-btn:hover {
+            background-color: #e53935;
+            color: white;
+        }
+
+        .sidebar:hover .logout-btn p {
+            visibility: visible;
+        }
+
+        .sidebar:hover .logout-btn i {
+            margin-right: 8px;
+        }
+
+
+        @@media (max-width: 768px) {
+            ::-webkit-scrollbar {
+                width: 4px; /* Thin scrollbar */
+            }
+
+            ::-webkit-scrollbar-track {
+                background-color: transparent; /* Make track invisible */
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background-color: #888; /* Default color for thumb */
+                border-radius: 10px;
+            }
+
+                ::-webkit-scrollbar-thumb:hover {
+                    background-color: #555; /* Darker color on hover */
+                }
+
+
+            .modal {
+                width: 70%;
+                height: 70%;
+                margin: -6vh;
+                margin-top: 11vh;
+            }
+
+            .sidebar {
+                width: auto;
+                height: 100%;
+                position: relative;
+                padding: 10px 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 10px;
+            }
+
+            .sidebar ul li a {
+                text-decoration: none;
+                color: white;
+                margin-left: 10px;
+                flex-grow: 1;
+                visibility: visible;
+                opacity: 1;
+                transition: visibility 0.3s ease, opacity 0.3s ease;
+            }
+
+            .sidebar h1 {
+                visibility: visible;
+                opacity: 1;
+            }
+
+            .logout-btn {
+                visibility: visible;
+                width: 90%;
+                justify-content: flex-start;
+                padding: 8px 12px;
+                font-size: 14px;
+                gap: 8px;
+                background-color: #f44336;
+                color: white;
+                border: none;
+                cursor: pointer;
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                transition: background-color 0.3s ease, color 0.3s ease;
+                position: absolute;
+                bottom: 20px;
+                left: 5%;
+            }
+
+                .logout-btn .user-name i {
+                    font-size: 18px;
+                    margin-right: 8px;
+                }
+
+                .logout-btn i {
+                    font-size: 16px;
+                }
+
+                .logout-btn .user-name {
+                    display: flex;
+                    align-items: center;
+                    margin: 0;
+                }
+
+                    .logout-btn .user-name i {
+                        margin-right: 5px;
+                    }
+
+                .logout-btn .user-name {
+                    visibility: visible;
+                    opacity: 1;
+                }
+
+                .logout-btn:hover {
+                    background-color: #e53935;
+                    color: white;
+                }
+
+            .sidebar:hover {
+                width: 100%;
+            }
+
+            .sidebar ul li {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+
+            table th, table td {
+                font-size: 12px;
+                padding: 10px;
+            }
+
+            .sidebar-footer {
+                bottom: -1vh;
+                position: relative;
+                padding: 5px;
+                text-align: center;
+            }
+
+            .user-name {
+                font-size: 14px;
+                font-weight: bold;
+                margin-bottom: 5px;
+                display: flex;
+                align-items: center;
+                visibility: visible;
+                opacity: 1;
+            }
+
+            .sidebar:hover + .main-content {
+                margin-left: 0px;
+            }
+
+            .logout-btn i {
+                margin-right: 8px;
+            }
+        }
+
+
+
+
+        .modal {
+            position: fixed;
+            z-index: 1000;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            border-radius: 12px;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+        }
+
+            /* Show the Modal */
+            .modal.show {
+                display: block;
+                opacity: 1;
+                transition: opacity 0.3s ease;
+            }
+
+        /* Modal Content Styling */
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.3s ease;
+        }
+
+            /* Header Styling */
+            .modal-content h4 {
+                font-size: 1.8rem;
+                color: #6f0d4a;
+                font-weight: 600;
+                margin-bottom: 20px;
+            }
+
+        /* Input Fields */
+        input[type="text"] {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding-bottom: 20px;
+            width: 100%;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            background-color: #f9f9f9;
+            transition: all 0.3s ease;
+        }
+
+            input[type="text"]:focus {
+                border-color: #6f0d4a;
+                background-color: #fff;
+                outline: none;
+                box-shadow: 0 0 5px rgba(111, 13, 74, 0.5);
+            }
+
+        /* Button Styles */
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+            .modal-footer button {
+                border: none;
+                border-radius: 30px;
+                padding: 10px 20px;
+                font-size: 1rem;
+                cursor: pointer;
+                transition: background-color 0.3s ease, transform 0.2s ease;
+            }
+
+                .modal-footer button:hover {
+                    transform: translateY(-2px);
+                }
+
+                .modal-footer button:active {
+                    transform: translateY(2px);
+                }
+
+            .modal-footer .save-btn {
+                background-color: #6f0d4a;
+                color: white;
+            }
+
+                .modal-footer .save-btn:hover {
+                    background-color: #7e1b59;
+                }
+
+            .modal-footer .cancel-btn {
+                background-color: #e0e0e0;
+                color: #333;
+            }
+
+                .modal-footer .cancel-btn:hover {
+                    background-color: #c4c4c4;
+                }
+
+        /* Modal Fade In Animation */
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Accessibility Improvements */
+        .modal-content {
+            max-width: 500px;
+            min-width: 320px;
+            width: 100%;
+        }
+        /* Modal Basic Styles */
+
+    </style>
+
+</head>
+<body ng-app="InfinityPrints" ng-controller="IPController">
+    <div>
+        @RenderBody()
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1-crypto-js.js"></script>
+
+    <script src="~/Scripts/jquery-3.7.0.min.js"></script>
+
+    <script src="~/Scripts/angular.js"></script>
+
+    <script src="~/Scripts/ng-file-upload.min.js"></script>
+
+    <script src="~/Scripts/AngularJS/Module.js"></script>
+    <script src="~/Scripts/AngularJS/Service.js"></script>
+    <script src="~/Scripts/AngularJS/Controller.js"></script>
+    <script src="DataTables/datatables.min.js"></script>
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+</body>
+</html>
+
+
+

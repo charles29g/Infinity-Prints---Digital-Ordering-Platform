@@ -1,0 +1,142 @@
+@{
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+
+<body>
+    <div class="sidebar">
+        <h1>InfinityPrintz<br> Admin Panel</h1>
+        <ul>
+            <li style="margin-bottom: 5px;">
+                <a ng-href="/Home/DashboardAdmin">
+                    <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
+                        <i class="fas fa-user-circle" style="font-size: 18px;"></i>
+                    </span>
+                    Account
+                </a>
+            </li>
+            <li style="margin-bottom: 5px;">
+                <a ng-href="/Home/DashBooking">
+                    <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
+                        <i class="fas fa-star" style="font-size: 18px;"></i>
+                    </span>
+                    Reviews
+                </a>
+            </li>
+
+            <li style="margin-bottom: 5px;">
+                <a ng-href="/Home/DashPackage">
+                    <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
+                        <i class="fas fa-shopping-cart" style="font-size: 18px;"></i>
+                    </span>
+                    Services
+                </a>
+            </li>
+            <li style="margin-bottom: 5px;">
+                <a ng-href="/Home/DashPackage">
+                    <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
+                        <i class="fas fa-box-open" style="font-size: 18px;"></i>
+                    </span>
+                    Orders
+                </a>
+            </li>
+            <li style="margin-bottom: 5px;">
+                <a ng-href="/Home/DashPackage">
+                    <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
+                        <i class="fas fa-file-alt" style="font-size: 18px;"></i>
+                    </span>
+                    Content
+                </a>
+            </li>
+            <li style="margin-bottom: 5px;">
+                <a ng-href="/Home/DashReceipts">
+                    <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
+                        <i class="fas fa-users" style="font-size: 18px;"></i>
+                    </span>
+                    Users
+                </a>
+            </li>
+            <li style="margin-bottom: 5px;">
+                <a ng-href="/Home/DashDiscount">
+                    <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
+                        <i class="fas fa-credit-card" style="font-size: 18px;"></i>
+                    </span>
+                    Payment
+                </a>
+            </li>
+            <li style="margin-bottom: 5px;">
+                <a ng-href="/Home/DashLog">
+                    <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
+                        <i class="fas fa-comments" style="font-size: 18px;"></i>
+                    </span>
+                    Chat
+                </a>
+            </li>
+            <li style="margin-bottom: 5px;">
+                <a ng-href="/Home/DashUser">
+                    <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
+                        <i class="fas fa-book-open" style="font-size: 18px;"></i>
+                    </span>
+                    User Guide
+                </a>
+            </li>
+            <li style="margin-bottom: 5px;" class="active">
+                <a ng-href="/Home/DashUser">
+                    <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
+                        <i class="fas fa-spinner active" style="font-size: 18px;"></i>
+                    </span>
+                    Status
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <button class="logout-btn" ng-click="logoutfunc()">
+                    <p class="user-name"><i class="fas fa-user-circle"></i> {{ getFullName }}</p>
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <p style="text-align: right;">Employee Dashboard</p>
+        <h1 style="font-size: 2.5rem; font-weight: 600; color: #6f0d4a;  text-align: center;">
+            Sizes
+        </h1>
+        <div class="row white-text m2" ng-init="loadSizes()">
+
+            <div class="table-wrapper">
+                <table id="myTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>Size ID</th>
+                            <th>Service ID</th>
+                            <th>Size Name</th>
+                            <th>Price</th>
+
+                            <th>Created At</th>
+                            <th>Updated At</th>
+                            <th>Delete</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="pDATA in sizesData">
+                            <td>{{pDATA.SizeID}}</td>
+                            <td>{{pDATA.ServiceID}}</td>
+                            <td>{{pDATA.SizeName}}</td>
+                            <td>{{pDATA.Price}}</td>
+
+
+                            <td>{{DateFormat(pDATA.CreatedAt)}}</td>
+                            <td>{{DateFormat(pDATA.UpdatedAt)}}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>

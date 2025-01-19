@@ -1,0 +1,204 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body>
+    <nav class="nav-extended">
+        <div class="nav-wrapper">
+            <div class="row">
+                <div class="col s6">
+                    <a class="left" id="infinity">Infinity</a>
+                    <a class="left" id="prints">Prints</a>
+                </div>
+                <div class="col s6" style="text-align: right;">
+                    <a id="signIn" href="~/Home/SignIn">Sign in</a>
+                </div>
+            </div>
+        </div>
+        <div class="nav-content">
+            <ul class="tabs">
+                <li class="tab "><a href="#test1">Home</a></li>
+                <li class="tab "><a href="#test2">Services</a></li>
+                <li class="tab "><a href="#test3">Reviews</a></li>
+                <li class="tab "><a href="#test4">FAQs</a></li>
+                <li class="tab "><a href="#test5">About Us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="row">
+        <h5 id="txtSign">Sign In</h5>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sign In Form -->
+            <div class="col s12 m5" style="padding-left:40px; padding-right:40px">
+                <a class="left" id="txtuser">Existing</a>
+                <a class="left" style="margin-left:5px" id="user">User</a>
+                <div class="row">
+                    <div class="col s12" style="margin-top:10px;">
+                        <!-- Email -->
+                        <div class="input-icons">
+                            <i class="material-icons input-icon">email</i>
+                            <input id="email" class="input-field" type="email" placeholder="Email" required ng-model="email" />
+                            <span class="helper-text red-text" ng-show="signUpForm.email.$error.required && !signUpForm.email.$pristine">Email is required.</span>
+                            <span class="helper-text red-text" ng-show="signUpForm.email.$error.email && !signUpForm.email.$pristine">Please enter a valid email address.</span>
+                        </div>
+                        <!-- Password -->
+                        <div class="input-icons">
+                            <i class="material-icons input-icon">lock</i>
+                            <input id="pass" class="input-field" type="password" placeholder="Password" required ng-model="password" />
+                            <i class="material-icons input-icon input-icon-right2">visibility</i>
+                            <span class="helper-text red-text" ng-show="signUpForm.password.$error.required && !signUpForm.password.$pristine">Password is required.</span>
+                        </div>
+                        <div class="button-container">
+                            <button class="btn" type="submit" ng-click="validateUser()">Login</button>
+                        </div>
+                        <div class="resetpass">
+                            <a class="reset" href="">Forgot Password?</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col col-divider"></div>
+
+            <!-- Sign Up Form -->
+            <div class="col s12 m6" style="padding-left:40px; padding-right:40px">
+                <a class="left" id="txtuser">New</a>
+                <a class="left" style="margin-left:5px" id="user">User</a>
+
+                <div class="row">
+                    <form class="col s12" style="margin-top:10px;" name="signUpForm" ng-submit="validateUser()" novalidate>
+                        <div class="row">
+                            <!-- First Name -->
+                            <div class="col s6 input-icons" ng-class="{'invalid': signUpForm.fName.$touched && signUpForm.fName.$invalid || signUpForm.$submitted && signUpForm.fName.$invalid}">
+                                <i class="material-icons input-icon">person</i>
+                                <input id="fname" class="input-field validate" type="text" placeholder="First Name" required ng-model="firstName" ng-minlength="1" minlength="1" maxlength="50" name="fName" ng-pattern="/^[a-zA-Z0-9]+$/" autocomplete="off" />
+                                <span class="helper-text red-text" ng-show="signUpForm.fName.$error.required && (signUpForm.fName.$touched || signUpForm.$submitted)">First name is required</span>
+                                <span class="helper-text red-text" ng-show="signUpForm.fName.$error.maxlength && (signUpForm.fName.$touched || signUpForm.$submitted)">First name must not exceed to 50 characters.</span>
+                            </div>
+
+                            <!-- Last Name -->
+                            <div class="col s6 input-icons" ng-class="{'invalid': signUpForm.lname.$touched && signUpForm.lname.$invalid || signUpForm.$submitted && signUpForm.lname.$invalid}">
+                                <i class="material-icons input-icon">person</i>
+                                <input id="lname" class="input-field validate" type="text" placeholder="Last Name" required ng-model="lastName" ng-minlength="1" minlength="1" maxlength="50" name="lName" ng-pattern="/^[a-zA-Z0-9]+$/" autocomplete="off" />
+                                <span class="helper-text red-text" ng-show="signUpForm.lName.$error.required && (signUpForm.lName.$touched || signUpForm.$submitted)">Last Name is required.</span>
+                                <span class="helper-text red-text" ng-show="signUpForm.lName.$error.maxlength && (signUpForm.lName.$touched || signUpForm.$submitted)">Last Name cannot exceed 50 characters.</span>
+                            </div>
+
+                            <!-- Phone Number -->
+                            <div class="col s6 input-icons" ng-class="{'invalid': signUpForm.phone.$touched && signUpForm.phone.$invalid || signUpForm.$submitted && signUpForm.phone.$invalid}">
+                                <i class="material-icons input-icon">phone</i>
+                                <input id="phone" class="input-field validate" type="text" placeholder="Phone No." required ng-model="phone" name="phone" minlength="11" maxlength="12" ng-pattern="/^(09|\+639)\d{9}$/" autocomplete="off" />
+                                <span class="helper-text red-text" ng-show="(signUpForm.phone.$error.required && (signUpForm.phone.$touched || signUpForm.$submitted)) ||
+                                                  (signUpForm.phone.$error.pattern && (signUpForm.phone.$touched || signUpForm.$submitted))">
+                                    <span ng-show="signUpForm.phone.$error.required && (signUpForm.phone.$touched || signUpForm.$submitted)">
+                                        Phone number is required.
+                                    </span>
+                                    <span ng-show="signUpForm.phone.$error.pattern && (signUpForm.phone.$touched || signUpForm.$submitted)">
+                                        Enter a valid Philippine number (e.g., 09123456789, +639123456789).
+                                    </span>
+                                </span>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="col s6 input-icons"
+                                 ng-class="{'invalid': signUpForm.email2.$touched && (signUpForm.email2.$invalid || signUpForm.email2.$error.pattern) || signUpForm.$submitted && signUpForm.email2.$invalid}">
+                                <i class="material-icons input-icon">email</i>
+                                <input id="email2" class="input-field validate" type="email" placeholder="Email" required maxlength="60"
+                                       ng-model="email2" name="email2" />
+                                <span class="helper-text red-text"
+                                      ng-show="signUpForm.email2.$error.required && (signUpForm.email2.$touched || signUpForm.$submitted)">
+                                    Email is required.
+                                </span>
+                                <span class="helper-text red-text"
+                                      ng-show="signUpForm.email2.$error.pattern && (signUpForm.email2.$touched || signUpForm.$submitted)">
+                                    Please enter a valid Email address (e.g., user@domain.com).
+                                </span>
+                            </div>
+
+
+                            <!-- Username -->
+                            <div class="col s12 input-icons" ng-class="{'invalid': signUpForm.username.$touched && signUpForm.username.$invalid || signUpForm.$submitted && signUpForm.username.$invalid}">
+                                <i class="material-icons input-icon">person</i>
+                                <input id="uname" class="input-field validate" type="text" placeholder="Username" required ng-model="username" name="username" ng-minlength="3" minlength="3" maxlength="15" />
+                                <span class="helper-text red-text"
+                                      ng-show="(signUpForm.username.$error.required && (signUpForm.username.$touched || signUpForm.$submitted)) ||
+                                            (signUpForm.username.$error.minlength && (signUpForm.username.$touched || signUpForm.$submitted))">
+                                    <span ng-show="signUpForm.username.$error.required && (signUpForm.username.$touched || signUpForm.$submitted)">
+                                        Username is required.
+                                    </span>
+                                    <span ng-show="signUpForm.username.$error.minlength && (signUpForm.username.$touched || signUpForm.$submitted)">
+                                        Username must be at least 3 characters long.
+                                    </span>
+                                </span>
+                            </div>
+
+
+                            <!-- Password -->
+                            <div class="col s12 input-icons" ng-class="{'invalid': signUpForm.password2.$touched && signUpForm.password2.$invalid || signUpForm.$submitted && signUpForm.password2.$invalid}">
+                                <i class="material-icons input-icon">lock</i>
+                                <input id="pass2" class="input-field validate" type="{{showPassword ? 'text' : 'password'}}" placeholder="Password" required ng-model="password2" name="password2"
+                                       ng-minlength="8" minlength="8" maxlength="15" ng-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/" />
+
+                                <!-- Visibility icon -->
+                                <i class="material-icons input-icon input-icon-right2" ng-click="showPassword = !showPassword">
+                                    {{showPassword ? 'visibility_off' : 'visibility'}}
+                                </i>
+
+                                <!-- Error messages -->
+                                <span class="helper-text red-text" ng-show="signUpForm.password2.$touched && signUpForm.password2.$error.required">
+                                    Password is required.
+                                </span>
+                                <span class="helper-text red-text" ng-show="signUpForm.password2.$touched && signUpForm.password2.$error.minlength">
+                                    Password must be at least 8 characters long.
+                                </span>
+                                <span class="helper-text red-text" ng-show="signUpForm.password2.$touched && signUpForm.password2.$error.pattern">
+                                    Password must contain at least one uppercase letter, one lowercase letter, and one number.
+                                </span>
+                            </div>
+
+                            <!-- Confirm Password -->
+                            <div class="col s12 input-icons" ng-class="{'invalid': signUpForm.confpass.$touched && signUpForm.confpass.$invalid || signUpForm.$submitted && signUpForm.confpass.$invalid}">
+                                <i class="material-icons input-icon">lock</i>
+                                <input id="confpass" class="input-field validate" maxlength="15" type="{{showConfirmPassword ? 'text' : 'password'}}" placeholder="Confirm Password" required ng-model="confirmPassword" name="confpass" ng-minlength="8" />
+                                <i class="material-icons input-icon input-icon-right2" ng-click="showConfirmPassword = !showConfirmPassword">
+                                    {{showConfirmPassword ? 'visibility_off' : 'visibility'}}
+                                </i>
+                                <!-- Error message if passwords don't match -->
+                                <span class="helper-text red-text" style="width:50%"
+                                      ng-show="(confirmPassword !== password) && (signUpForm.confpass.$touched || signUpForm.$submitted)">
+                                    Passwords do not match.
+                                </span>
+                            </div>
+
+
+
+                            <!-- Terms & Conditions -->
+                            <div class="checkbox-container">
+                                <label>
+                                    <input class="check" type="checkbox" required ng-model="termsAccepted" />
+                                    <span id="terms">I accept terms & conditions</span>
+                                </label>
+                                <span class="helper-text red-text" S ng-show="signUpForm.check.$error.required && (signUpForm.check.$touched || signUpForm.$submitted)">You must accept the terms and conditions.</span>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="button-container2">
+                                <!-- Submit Button -->
+                                <button class="btn waves-effect waves-light" type="submit" ng-click="InsertReg()" ng-disabled="signUpForm.$invalid">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</body>
+
+

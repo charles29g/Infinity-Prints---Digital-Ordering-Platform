@@ -1,0 +1,99 @@
+app.service("IPService", function ($http) {
+
+    console.log("Service")
+
+    this.LoadServices = function () {
+        return $http.get("LoadServices");
+    }
+
+    this.LoadUsers = function () {
+        return $http.get("LoadUsers");
+    }
+
+    this.LoadContents = function () {
+        return $http.get("LoadContents");
+    }
+    this.LoadStatus = function () {
+        return $http.get("LoadStatus");
+    }
+    this.LoadReceipts = function () {
+        return $http.get("LoadReceipts");
+    }
+    this.LoadSizes = function () {
+        return $http.get("LoadSizes");
+    }
+    this.LoadLogs = function () {
+        return $http.get("LoadLogs");
+    }
+    this.LoadOrders = function () {
+        return $http.get("LoadOrders");
+    }
+    this.LoadPayments = function () {
+        return $http.get("LoadPayments");
+    }
+    this.SendEmail = function (emailData) {
+        console.log(emailData);
+
+        console.log(emailData + " Service");
+        var SendEmail = $http({
+            method: "post",
+            url: "Home/SendEmailVerification",
+            data: {
+                emailData: emailData,
+            }
+        });
+
+        return SendEmail;
+    };
+
+    this.InsertRegistration = function (RegData) {
+        console.log(RegData)
+
+        console.log(RegData + "Service")
+        var Insert = $http({
+            method: "post",
+            url: "Home/InsertRegistration",
+            data: {
+                RegData: RegData,
+                // userID: sessionStorage.getItem("userID")
+
+            }
+
+        });
+
+        return Insert;
+    };
+
+    this.ChangePassword = function (RegData) {
+        console.log(RegData)
+
+        console.log(RegData + "Service")
+        var Insert = $http({
+            method: "post",
+            url: "Home/UpdatePassword",
+            data: {
+                RegData: RegData,
+                // userID: sessionStorage.getItem("userID")
+
+            }
+
+        });
+
+        return Insert;
+    };
+
+
+    this.ConfirmEmail = function (userID) {
+        console.log("Confirming email for userID:", userID);
+
+        var Confirm = $http({
+            method: "post",
+            url: "/Home/ActivateUser",  // Full URL path for the controller action
+            data: { userID: userID }  // Use an object to send data
+        });
+
+        return Confirm;
+    };
+
+
+})
