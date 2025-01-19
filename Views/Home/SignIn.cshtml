@@ -155,22 +155,34 @@
                                 <span class="helper-text red-text" ng-show="signUpForm.password2.$touched && signUpForm.password2.$error.minlength">
                                     Password must be at least 8 characters long.
                                 </span>
-                                <span class="helper-text red-text" ng-show="signUpForm.password2.$touched && signUpForm.password2.$error.pattern">
+                                <span class="helper-text red-text" ng-show="signUpForm.password2.$touched && signUpForm.password2.$viewValue.length >= 8 && signUpForm.password2.$error.pattern">
                                     Password must contain at least one uppercase letter, one lowercase letter, and one number.
                                 </span>
                             </div>
 
+
+
+
                             <!-- Confirm Password -->
-                            <div class="col s12 input-icons" ng-class="{'invalid': signUpForm.confpass.$touched && signUpForm.confpass.$invalid || signUpForm.$submitted && signUpForm.confpass.$invalid}">
+                            <div class="col s12 input-icons" ng-class="{'invalid': signUpForm.confpass.$touched && (signUpForm.confpass.$error.required || confirmPassword !== password2) || signUpForm.$submitted && (signUpForm.confpass.$error.required || confirmPassword !== password2)}">
                                 <i class="material-icons input-icon">lock</i>
                                 <input id="confpass" class="input-field validate" maxlength="15" type="{{showConfirmPassword ? 'text' : 'password'}}" placeholder="Confirm Password" required ng-model="confirmPassword" name="confpass" ng-minlength="8" />
                                 <i class="material-icons input-icon input-icon-right2" ng-click="showConfirmPassword = !showConfirmPassword">
                                     {{showConfirmPassword ? 'visibility_off' : 'visibility'}}
                                 </i>
                                 <!-- Error message if passwords don't match -->
-                                <span class="helper-text red-text" style="width:50%"
-                                      ng-show="(confirmPassword !== password) && (signUpForm.confpass.$touched || signUpForm.$submitted)">
+                                <!--<span class="helper-text red-text" style="width:50%"
+          ng-show="(confirmPassword !== password) && (signUpForm.confpass.$touched || signUpForm.$submitted)">
+        Passwords do not match.
+    </span>-->
+                                <!-- Error messages -->
+                                <!-- Password mismatch -->
+                                <span class="helper-text red-text" ng-show="signUpForm.confpass.$touched && confirmPassword !== password2 && confirmPassword !== ''">
                                     Passwords do not match.
+                                </span>
+                                <!-- Required error -->
+                                <span class="helper-text red-text" ng-show="signUpForm.confpass.$touched && confirmPassword === ''">
+                                    Confirm Password is required.
                                 </span>
                             </div>
 
