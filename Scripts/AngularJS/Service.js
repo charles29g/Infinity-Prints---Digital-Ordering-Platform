@@ -31,6 +31,20 @@ app.service("IPService", function ($http) {
     this.LoadPayments = function () {
         return $http.get("LoadPayments");
     }
+
+    this.SendEmailCP = function (emailData) {
+        console.log(emailData);
+
+        console.log(emailData + " Service");
+        var SendEmail = $http({
+            method: "post",
+            url: "Home/LoadUserCP",
+            data: { SendEmail: emailData.Email, }
+
+        });
+
+        return SendEmail;
+    };
     this.SendEmail = function (emailData) {
         console.log(emailData);
 

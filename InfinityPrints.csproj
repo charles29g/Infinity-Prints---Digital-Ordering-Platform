@@ -225,6 +225,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChangePasswordDTO.cs" />
     <Compile Include="Models\EmailData.cs" />
     <Compile Include="Models\InfinityPrintsContext.cs" />
     <Compile Include="Models\tbl_contentMap.cs" />
@@ -246,6 +247,7 @@
     <Compile Include="Models\tbl_usersMap.cs" />
     <Compile Include="Models\tbl_usersModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Views\Home\ForgotPasswordEmail.cshtml" />
     <Content Include="Content\materialize.css" />
     <Content Include="Content\materialize.min.css" />
     <Content Include="Scripts\materialize.js" />

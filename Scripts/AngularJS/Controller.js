@@ -244,13 +244,88 @@
     };
 
 
+
+
+
+    $scope.GetEmailID = function (encryptedUserId) {
+        // Construct the URL with the encrypted userID
+
+        var emailData = {
+            Email: $scope.email,  // Target email addressSS
+
+        };
+
+        var sendEmailRequest = IPService.SendEmailCP(emailData);
+        sendEmailRequest.then(function (response) {
+            console.log("Email sent successfully:", response.data);
+
+            var Email = response.data.Email;
+            var userID = response.data.HashedUserID;
+
+            $scope.sendEmailChangePass(userID, Email);
+
+
+            swal.fire({
+                title: 'Success!',
+                text: 'Activation email sent successfully!',
+                icon: 'success',
+                confirmButtonText: 'OK',
+            });
+        }).catch(function (error) {
+            console.error("Error sending email:", error);
+            swal.fire({
+                title: 'Error!',
+                text: 'Error sending activation email.',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+        });
+    };
+
+
+
+
+    $scope.sendEmailChangePass = function (encryptedUserId, email) {
+        // Construct the URL with the encrypted userID
+        var url = `https://localhost:44399/Home/ForgotPasswordPage?userID=${encryptedUserId}`;
+
+        var emailData = {
+            toEmail: email,  // Target email address
+            subject: "Infinity Prints Account Password Change ",      // Subject of the email
+            body: `<h1>Infinity Prints</h1><p>Please click the <a href="${url}">link</a> to change your account password</p>` // Body of the email (HTML format)
+        };
+
+        var sendEmailRequest = IPService.SendEmail(emailData);
+        sendEmailRequest.then(function (response) {
+            console.log("Email sent successfully:", response.data);
+            swal.fire({
+                title: 'Success!',
+                text: 'Activation email sent successfully!',
+                icon: 'success',
+                confirmButtonText: 'OK',
+            });
+        }).catch(function (error) {
+            console.error("Error sending email:", error);
+            swal.fire({
+                title: 'Error!',
+                text: 'Error sending activation email.',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+        });
+    };
+
     $scope.ChangePassword = function () {
         var params = $location.search(); // gets all query parameters as an object
         $scope.userID = params.userID; //Get 'userID' directly from the URL query string
+        var userID = $scope.userID;
+        console.log(userID)
+
         var userID = $scope.userID
         var RegData = {
-            password: $scope.password,
-            userID: userID,
+            Password: $scope.password,
+            UserID: userID
+
 
         };
         console.log(RegData + " controller");
@@ -338,6 +413,54 @@
 
 
     $scope.confirmEmailFromURL = function () {
+        var params = $location.search(); // gets all query parameters as an object
+        $scope.userID = params.userID; //Get 'userID' directly from the URL query string
+        var userID = $scope.userID
+        console.log('Extracted userID:', userID);  // Log the extracted userID
+
+        if (userID) {
+            console.log('UserID found:', userID);
+
+            // Call the service to confirm the email
+            var sendConfirm = IPService.ConfirmEmail(userID)
+
+
+            sendConfirm.then(function (response) {
+                if (response.data.success) {
+                    swal.fire({
+                        title: 'Email Confirmed',
+                        text: 'Your email has been successfully confirmed.',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                        timer: 2000
+                    });
+                } else {
+                    swal.fire({
+                        title: 'Error',
+                        text: response.data.message,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            }).catch(function (error) {
+                swal.fire({
+                    title: 'Error!',
+                    text: 'An error occurred while confirming your email. Please try again.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            });
+        } else {
+            swal.fire({
+                title: 'Error',
+                text: 'Invalid link. No UserID found.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    };
+
+    $scope.ChangePasswordEmail = function () {
         var params = $location.search(); // gets all query parameters as an object
         $scope.userID = params.userID; //Get 'userID' directly from the URL query string
         var userID = $scope.userID

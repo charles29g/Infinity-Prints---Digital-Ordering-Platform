@@ -103,6 +103,11 @@ namespace InfinityPrints.Controllers
 
             return View();
         }
+        public ActionResult ForgotPasswordEmail()
+        {
+
+            return View();
+        }
         public JsonResult LoadServices()
         {
             using (var db = new InfinityPrintsContext())
@@ -129,6 +134,34 @@ namespace InfinityPrints.Controllers
         }
 
 
+
+
+        public JsonResult LoadUserCP(string SendEmail)
+        {
+            var salt = "InfinityPrints";
+
+            using (InfinityPrintsContext db = new InfinityPrintsContext())
+            {
+                // Fetch a single user from the database
+                var user = db.tbl_users
+                    .FirstOrDefault(users => users.Email == SendEmail); // Fetch the first matching user or null
+
+                if (user != null)
+                {
+                    // Prepare the response object
+                    var userInfo = new
+                    {
+                        HashedUserID = user.UserID.GetMD5WithSalt(salt), // Apply the salt-based hashing
+                        user.Email
+                    };
+
+                    return Json(userInfo, JsonRequestBehavior.AllowGet); // Return the single record
+                }
+
+                // If no user is found, return null
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+        }
 
 
 
@@ -418,25 +451,81 @@ namespace InfinityPrints.Controllers
             }
         }
 
-        public JsonResult UpdatePassword(tbl_usersModel regData)
+        //public JsonResult UpdatePassword(tbl_usersModel regData)
+        //{
+        //    using (InfinityPrintsContext db = new InfinityPrintsContext())
+        //    {
+        //        try
+        //        {
+        //            // Find the user by UserID
+        //            var existingUser = db.tbl_users.FirstOrDefault(u => u.UserID == regData.UserID);
+
+        //            if (existingUser == null)
+        //            {
+        //                // If the user does not exist, return an appropriate message
+        //                return Json(new { success = false, message = "User not found." }, JsonRequestBehavior.AllowGet);
+        //            }
+
+        //            // Update the password
+        //            existingUser.Password = regData.Password;
+        //            existingUser.UpdatedAt = DateTime.Now;
+        //            // Save changes to the database
+        //            db.SaveChanges();
+
+        //            return Json(new { success = true, message = "Password updated successfully." }, JsonRequestBehavior.AllowGet);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            // Handle any errors
+        //            return Json(new { success = false, message = $"An error occurred: {ex.Message}" }, JsonRequestBehavior.AllowGet);
+        //        }
+        //    }
+        //}
+
+        public JsonResult UpdatePassword(ChangePasswordDTO regData)
         {
             using (InfinityPrintsContext db = new InfinityPrintsContext())
             {
                 try
                 {
-                    // Find the user by UserID
-                    var existingUser = db.tbl_users.FirstOrDefault(u => u.UserID == regData.UserID);
+                    // Define the salt used for hashing the password
+                    // This should be securely stored in a config file in a real app
+                    var salt = "InfinityPrints";
 
-                    if (existingUser == null)
+
+                    bool isUserFound = false;  // Flag to track if the user is found
+
+                    // Iterate through all users in the table
+                    foreach (var user in db.tbl_users)
                     {
-                        // If the user does not exist, return an appropriate message
-                        return Json(new { success = false, message = "User not found." }, JsonRequestBehavior.AllowGet);
+
+
+                        var hashedUserID = user.UserID.GetMD5WithSalt(salt);
+                        var EncryptedUserID = regData.UserID;
+
+
+                        // If the UserID matches, apply the hashing logic
+                        if (hashedUserID == EncryptedUserID)
+                        {
+                            isUserFound = true;
+
+                            // Hash the password with the salt using MD5 (or any other secure hashing algorithm)
+                            var hashedPassword = regData.Password.GetMD5WithSalt(salt);
+
+                            // Update the user's password with the hashed version
+                            user.Password = hashedPassword;
+                            user.UpdatedAt = DateTime.Now;
+
+                            // Break out of the loop once the user is found and updated
+                            break;
+                        }
                     }
 
-                    // Update the password
-                    existingUser.Password = regData.Password;
-                    existingUser.UpdatedAt = DateTime.Now;
-                    // Save changes to the database
+                    // If no matching user is found
+                    if (!isUserFound)
+                        return Json(new { success = false, message = "User not found." }, JsonRequestBehavior.AllowGet);
+
+                    // Save changes to the database after looping through all users
                     db.SaveChanges();
 
                     return Json(new { success = true, message = "Password updated successfully." }, JsonRequestBehavior.AllowGet);
@@ -474,7 +563,7 @@ namespace InfinityPrints.Controllers
                             isUserFound = true;
 
                             // Check if the user is already active
-                            if (user.IsActive == "true")
+                            if (!string.IsNullOrEmpty(user.IsActive))
                                 return Json(new { success = false, message = "This link has already been used." });
 
                             // Activate the user
