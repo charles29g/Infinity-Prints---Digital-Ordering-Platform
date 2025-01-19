@@ -598,6 +598,62 @@ namespace InfinityPrints.Controllers
 
 
 
+        public JsonResult ValidateLogin(tbl_usersModel loginData)
+        {
+            Console.WriteLine("Login Attempt: Email = " + loginData.Email + ", Password = " + loginData.Password);
+
+            using (InfinityPrintsContext db = new InfinityPrintsContext())
+            {
+                try
+                {
+
+                    Console.WriteLine("Login Attempt: Email = " + loginData.Email + ", Password = " + loginData.Password);
+                    var salt = "InfinityPrints";
+                    var passhashed = loginData.Password.GetMD5WithSalt(salt);
+                    var login = db.tbl_users
+                        .Where(r => r.Email.Equals(loginData.Email) && r.Password.Equals(passhashed))
+                        .FirstOrDefault();
+
+                    if (login == null)
+                    {
+                        return Json(new { success = false, message = "Email or password home does not match", status = 0 }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(new
+                        {
+                            success = true,
+                            message = "Login Successful",
+                            status = 1,
+                            UserID = login.UserID,
+                            FName = login.FName,
+                            RoleID = login.RoleID,
+                            FullName = login.FName + " " + login.LName,
+
+                        }, JsonRequestBehavior.AllowGet);
+
+
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { success = false, message = ex.Message, status = -1 }, JsonRequestBehavior.AllowGet);
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
 

@@ -53,7 +53,7 @@
                             <span class="helper-text red-text" ng-show="signUpForm.password.$error.required && !signUpForm.password.$pristine">Password is required.</span>
                         </div>
                         <div class="button-container">
-                            <button class="btn" type="submit" ng-click="validateUser()">Login</button>
+                            <button class="btn" type="submit" ng-click="loginfunc()">Login</button>
                         </div>
                         <div class="resetpass">
                             <a class="reset" href="">Forgot Password?</a>
@@ -172,9 +172,9 @@
                                 </i>
                                 <!-- Error message if passwords don't match -->
                                 <!--<span class="helper-text red-text" style="width:50%"
-          ng-show="(confirmPassword !== password) && (signUpForm.confpass.$touched || signUpForm.$submitted)">
-        Passwords do not match.
-    </span>-->
+                                      ng-show="(confirmPassword !== password) && (signUpForm.confpass.$touched || signUpForm.$submitted)">
+                                    Passwords do not match.
+                                </span>-->
                                 <!-- Error messages -->
                                 <!-- Password mismatch -->
                                 <span class="helper-text red-text" ng-show="signUpForm.confpass.$touched && confirmPassword !== password2 && confirmPassword !== ''">

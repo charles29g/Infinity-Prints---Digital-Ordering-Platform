@@ -97,6 +97,23 @@ app.service("IPService", function ($http) {
     };
 
 
+
+    this.loginfunc = function (loginData) {
+
+        console.log(loginData + "Service");
+        var response = $http({
+            method: "post",
+            url: "Home/ValidateLogin",
+            data: {
+                loginData, userID: sessionStorage.getItem("userID")
+            }
+
+        });
+
+        return response;
+
+    };
+
     this.ConfirmEmail = function (userID) {
         console.log("Confirming email for userID:", userID);
 

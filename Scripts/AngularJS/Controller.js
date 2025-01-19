@@ -509,4 +509,73 @@
     };
 
 
+
+
+
+
+    $scope.loginfunc = function () {
+        var loginData = {
+            Email: $scope.email,
+            Password: $scope.password
+        };
+
+        console.log(loginData);
+
+        var getData = IPService.loginfunc(loginData);
+
+        getData.then(function (ReturnedData) {
+            var returnedValue = ReturnedData.data;
+
+            if (returnedValue.status == 1) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Welcome to Infinity Prints!',
+                    text: 'Hello, ' + returnedValue.Fname + '! We are excited to have you onboard.',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    //sessionStorage.setItem("Name", returnedValue.Fname);
+                    //sessionStorage.setItem("FullName", returnedValue.FullName);
+                    //IPService.setUserID(returnedValue.userID);
+                    //sessionStorage.setItem("roleID", returnedValue.roleID);
+
+                    //if (returnedValue.roleID === 1) {
+                    //    window.location.href = "/Home/Orderpage";
+                    //} else if (returnedValue.roleID === 0) {
+                    //    window.location.href = "/Home/DashboardAdmin";
+                    //}
+                });
+
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Login Failed',
+                    text: 'The email address or password provided does not match any records. Please check your credentials and try again.',
+                    confirmButtonText: 'OK'
+                });
+            }
+        }).catch(function (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'There was an issue processing your request. Please try again later.',
+                confirmButtonText: 'OK'
+            });
+        });
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 })
