@@ -10,10 +10,10 @@
     <style>
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #fff;
+            background-color: white;
             color: #6f0d4a;
             margin: 0;
-            padding: 0;
+            padding: 40px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -27,6 +27,7 @@
             border-radius: 8px;
             max-width: 500px;
             width: 100%;
+            background: #6f0d4a;
         }
 
         h1 {
@@ -34,36 +35,55 @@
             font-weight: 600;
             margin-bottom: 15px;
             letter-spacing: 0.5px;
+            color: white;
         }
 
         p {
             font-size: 16px;
-            color: #444;
+            color: gray;
             margin-bottom: 25px;
         }
 
+        
         .btn {
-            display: inline-block;
-            background-color: #6f0d4a;
-            color: white;
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: 500;
-            text-decoration: none;
-            border-radius: 30px;
+            background-color: white;
+            color: black;
+            font-size: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
             transition: background-color 0.3s;
-            letter-spacing: 1px;
+            width: 150px
         }
 
-            .btn:hover {
+            .btn:hover, .btn:focus {
                 background-color: #a02a60;
+                color: black;
+                font-size: 12px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.1s;
+                width: 150px
             }
 
+
         .footer {
+            margin-top: 20px;
             font-size: 12px;
             color: #888;
-            margin-top: 20px;
         }
+
+            .footer p {
+                color: dodgerblue;
+                text-decoration: none;
+            }
+
+                .footer p:hover {
+                    text-decoration: underline;
+                    cursor:pointer
+                    
+                }
     </style>
 </head>
 
@@ -73,9 +93,9 @@
     <div class="container">
         <h1>Account Ready</h1>
         <p>Your account is now fully activated and ready to be used. Start exploring and enjoy the full experience.</p>
-        <a href="#" class="btn">Go to Dashboard</a>
+        <a href="~/Home/DashContent" class="btn">Go to Dashboard</a>
         <div class="footer">
-            <p>Need help? Contact us anytime.</p>
+            <p>Need help?</p><a href="www.google.com"> Contact us anytime.</a>
         </div>
     </div>
     <script src="~/Scripts/jquery-3.7.0.min.js"></script>
