@@ -179,6 +179,7 @@
 
             if (response.success) {
                 var userId = response.userId;
+                var Email = $scope.email2;
                 console.log("UserID created: ", userId);
 
                 // Encrypt the userId using AES before passing it
@@ -192,7 +193,7 @@
                     confirmButtonText: 'OK',
                 }).then(() => {
                     // Call SendEmail with the encryptedUserId
-                    $scope.sendEmail(userId);
+                    $scope.sendEmail(userId, Email);
                 });
             } else {
                 swal.fire({
@@ -213,12 +214,12 @@
         });
     };
 
-    $scope.sendEmail = function (encryptedUserId) {
+    $scope.sendEmail = function (encryptedUserId,email) {
         // Construct the URL with the encrypted userID
         var url = `https://localhost:44399/Home/ConfirmationPage?userID=${encryptedUserId}`;
 
         var emailData = {
-            toEmail: "charlesjoseph.gutierrez.cics@ust.edu.ph",  // Target email address
+            toEmail: email,  // Target email address
             subject: "Infinity Prints Account Activation",      // Subject of the email
             body: `<h1>Infinity Prints</h1><p>Please click the <a href="${url}">link</a> to activate your account</p>` // Body of the email (HTML format)
         };
