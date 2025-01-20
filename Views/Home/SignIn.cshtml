@@ -41,17 +41,34 @@
                         <!-- Email -->
                         <div class="input-icons">
                             <i class="material-icons input-icon">email</i>
-                            <input id="email" class="input-field" type="email" placeholder="Email" required ng-model="email" />
-                            <span class="helper-text red-text" ng-show="signUpForm.email.$error.required && !signUpForm.email.$pristine">Email is required.</span>
-                            <span class="helper-text red-text" ng-show="signUpForm.email.$error.email && !signUpForm.email.$pristine">Please enter a valid email address.</span>
+                            <input id="email" class="input-field validate" type="email" placeholder="Email" required ng-model="email" name="email" />
+                            <span class="helper-text red-text" ng-show="SignInForm.email.$touched && SignInForm.email.$error.required">
+                                Email is required.
+                            </span>
+                            <span class="helper-text red-text" ng-show="SignInForm.email.$touched && SignInForm.email.$error.email">
+                                Please enter a valid email address.
+                            </span>
                         </div>
+
                         <!-- Password -->
-                        <div class="input-icons">
+                        <div class="input-icons" ng-class="{'invalid': SignInForm.password.$touched && SignInForm.password.$invalid || SignInForm.$submitted && SignInForm.password.$invalid}">
                             <i class="material-icons input-icon">lock</i>
-                            <input id="pass" class="input-field" type="password" placeholder="Password" required ng-model="password" />
-                            <i class="material-icons input-icon input-icon-right2">visibility</i>
-                            <span class="helper-text red-text" ng-show="signUpForm.password.$error.required && !signUpForm.password.$pristine">Password is required.</span>
+                            <input id="pass" class="input-field validate"
+                                   type="{{showPassword ? 'text' : 'password'}}"
+                                   placeholder="Password" required ng-model="password" name="password" />
+
+                            <!-- Visibility icon -->
+                            <i class="material-icons input-icon-right"
+                               ng-click="showPassword = !showPassword">
+                                {{showPassword ? 'visibility_off' : 'visibility'}}
+                            </i>
+
+                            <!-- Error message -->
+                            <span class="helper-text red-text" ng-show="SignInForm.password.$touched && SignInForm.password.$error.required">
+                                Password is required.
+                            </span>
                         </div>
+
                         <div class="button-container">
                             <button class="btn" type="submit" ng-click="loginfunc()">Login</button>
                         </div>

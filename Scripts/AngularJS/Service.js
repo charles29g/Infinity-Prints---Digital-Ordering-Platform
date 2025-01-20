@@ -3,33 +3,33 @@ app.service("IPService", function ($http) {
     console.log("Service")
 
     this.LoadServices = function () {
-        return $http.get("LoadServices");
+        return $http.get("Home/LoadServices");
     }
 
     this.LoadUsers = function () {
-        return $http.get("LoadUsers");
+        return $http.get("Home/LoadUsers");
     }
 
     this.LoadContents = function () {
-        return $http.get("LoadContents");
+        return $http.get("Home/LoadContents");
     }
     this.LoadStatus = function () {
-        return $http.get("LoadStatus");
+        return $http.get("Home/LoadStatus");
     }
     this.LoadReceipts = function () {
-        return $http.get("LoadReceipts");
+        return $http.get("Home/LoadReceipts");
     }
     this.LoadSizes = function () {
-        return $http.get("LoadSizes");
+        return $http.get("Home/LoadSizes");
     }
     this.LoadLogs = function () {
-        return $http.get("LoadLogs");
+        return $http.get("Home/LoadLogs");
     }
     this.LoadOrders = function () {
-        return $http.get("LoadOrders");
+        return $http.get("Home/LoadOrders");
     }
     this.LoadPayments = function () {
-        return $http.get("LoadPayments");
+        return $http.get("Home/LoadPayments");
     }
 
     this.SendEmailCP = function (emailData) {

@@ -108,6 +108,14 @@ namespace InfinityPrints.Controllers
 
             return View();
         }
+
+        public ActionResult Homepage()
+        {
+
+            return View();
+        }
+
+
         public JsonResult LoadServices()
         {
             using (var db = new InfinityPrintsContext())

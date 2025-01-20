@@ -1,0 +1,727 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link type="text/css" rel="stylesheet" href="~/Content/materialize.min.css" />
+    <script src="~/Scripts/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    <base href="/" />
+
+    <title>@ViewBag.Title</title>
+</head>
+<body ng-app="InfinityPrints" ng-controller="IPController">
+    <style>
+        body {
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+
+        .row {
+            margin-bottom: 0;
+        }
+
+        nav {
+            background-color: white;
+            box-shadow: none;
+            outline: none;
+            border-bottom: 2px solid #6f0d4a;
+        }
+
+        .nav-content {
+            width: 100%;
+            overflow: hidden;
+        }
+
+            .nav-content .tabs {
+                display: flex;
+                justify-content: space-evenly;
+                width: 100%;
+                padding-left: 0px;
+                margin-right: 0;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                white-space: nowrap;
+            }
+
+                .nav-content .tabs .tab {
+                    flex-shrink: 0;
+                    text-align: center;
+                }
+
+                    .nav-content .tabs .tab a {
+                        display: block;
+                        padding: 10px 0;
+                        font-size: 17px;
+                        color: #6f0d4a !important;
+                    }
+
+                        .nav-content .tabs .tab a:hover,
+                        .nav-content .tabs .tab a:focus {
+                            transform: scale(1.1); /* Makes the tab 10% larger */
+                            transition: transform 0.1s ease; /* Smooth zoom animation */
+                            border-bottom: solid; /* Keeps the border */
+                            font-weight: bold;
+                        }
+
+                        .nav-content .tabs .tab a.active {
+                            font-weight: bold; /* Makes the active tab bold */
+                            transform: scale(1.1); /* Keeps the active tab zoomed */
+                        }
+
+                        .nav-content .tabs .tab a:hover {
+                            transform: scale(1.1);
+                        }
+
+
+        @@media (max-width: 768px) {
+            .nav-content .tabs {
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+                justify-content: flex-start;
+            }
+
+                .nav-content .tabs .tab {
+                    flex-grow: 0;
+                    min-width: 120px;
+                }
+        }
+
+
+        #infinity {
+            margin-left: 10px;
+            font-weight: bold;
+            font-size: 40px;
+            color: #6f0d4a;
+        }
+
+        #prints {
+            font-weight: bold;
+            font-size: 40px;
+            color: black;
+        }
+
+        #signIn {
+            margin-right: 20px;
+            font-size: 20px;
+            color: black;
+        }
+
+        #txtuser {
+            font-weight: bold;
+            font-size: 20px;
+            color: #6f0d4a;
+            font-size: 25px;
+        }
+
+        #user {
+            font-weight: bold;
+            font-size: 20px;
+            color: black;
+            font-size: 25px;
+        }
+
+        #txtSign {
+            margin-left: 50px;
+            margin-right: 50px;
+            margin-top: 40px;
+            font-weight: bold;
+        }
+
+        .input-icons {
+            width: 100%;
+            margin-bottom: 20px;
+            color: #6f0d4a;
+            position: relative;
+        }
+
+            .input-icons i {
+                position: absolute;
+            }
+
+        .input-icon {
+            padding: 10px;
+            min-width: 40px;
+        }
+
+        .input-icon-right {
+            padding: 10px;
+            right: 0%;
+            cursor: pointer;
+        }
+        /*
+        .input-icon-right2 {
+            padding: 10px;
+            right: 2%;
+            cursor: pointer;
+
+        }*/
+
+        .input-icon-right2 {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            z-index: 10;
+        }
+
+
+
+        #email, #pass {
+            width: 100%;
+            padding: 10px 40px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        #fname, #lname, #phone, #email2, #uname, #pass2, #confpass {
+            padding: 10px 40px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+            width: 90%;
+        }
+
+        .button-container2 {
+            text-align: center;
+            width: 100%;
+        }
+
+        .checkbox-container {
+            text-align: center;
+            width: 100%;
+        }
+
+        .check:focus {
+            accent-color: rebeccapurple;
+            color: black;
+        }
+
+        #terms {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: black;
+        }
+
+        .btn, .btn-signup, .btn:focus {
+            border-radius: 50px;
+            background-color: #ac7b99;
+            width: 100px;
+            height: 35px;
+            text-transform: capitalize;
+            font-family: 'Trebuchet MS';
+            text-align: center;
+        }
+
+            .btn:hover {
+                background-color: #6f0d4a;
+            }
+
+        .resetpass {
+            text-align: center;
+            width: 90%;
+        }
+
+        .reset {
+            font-size: 13px;
+        }
+
+
+        .col-divider {
+            border-left: 3px solid #000;
+            height: 500px;
+        }
+
+        .col-divider1 {
+            border-right: 3px solid #000;
+            height: 500px;
+        }
+
+
+        @@media only screen and (max-width: 768px) {
+            body {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .col.s5, .col.s6 {
+                flex: 0 0 100%;
+                max-width: 100%;
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .col {
+                border-left: none !important;
+            }
+
+            .col-divider, .col-divider1 {
+                border-left: none !important;
+                border-bottom: 3px solid #000;
+                width: 80%;
+                margin-left: 40px;
+                height: auto !important;
+            }
+
+
+            .input-field {
+                width: 100%;
+                padding: 10px 40px;
+                box-sizing: border-box;
+            }
+
+            .helper-text {
+                font-size: 0.75rem;
+                padding-left: 20px;
+                top: 110%;
+                left: 0;
+                visibility: hidden;
+            }
+
+            .input-field.ng-invalid.ng-touched + .helper-text {
+                visibility: visible;
+            }
+
+            .input-icons {
+                margin-bottom: 30px;
+            }
+
+            #infinity {
+                margin-left: 10px;
+                font-weight: bold;
+                font-size: 40px;
+                color: #6f0d4a;
+            }
+
+            #prints {
+                margin-left: 10px;
+                font-weight: bold;
+                font-size: 40px;
+                color: black;
+            }
+        }
+
+        .helper-text {
+            font-size: 0.7rem;
+            position: absolute;
+            color: #ff5722;
+            /*    visibility: hidden;*/
+            top: 100%;
+            left: 0;
+            padding-left: 15px;
+        }
+
+        .input-field.ng-invalid.ng-touched + .helper-text {
+            visibility: visible;
+        }
+
+        #homeimg {
+            width: 100%;
+            padding-left: 3vh;
+            padding-right: 3vh;
+        }
+
+        #greet {
+            font-weight: bold;
+            font-size: 40px;
+            color: black;
+        }
+
+        #infinity2 {
+            margin-left: 10px;
+            font-weight: bold;
+            font-size: 40px;
+            color: #6f0d4a;
+        }
+
+        #prints2 {
+            font-weight: bold;
+            font-size: 40px;
+            color: black;
+        }
+
+        #infinityprintstxt {
+            margin-bottom: 20px;
+        }
+
+        @@media only screen and (max-width: 768px) {
+            #greet {
+                font-weight: bold;
+                font-size: 30px;
+                color: black;
+            }
+
+            #infinity2 {
+                margin-left: 10px;
+                font-weight: bold;
+                font-size: 30px;
+                color: #6f0d4a;
+            }
+
+            #prints2 {
+                font-weight: bold;
+                font-size: 30px;
+                color: black;
+            }
+        }
+
+        #row-greet {
+            margin-bottom: 0px;
+        }
+
+        #servicesTxt, #feedbacksTxt {
+            margin-top: 50px;
+        }
+
+        #services-section, #feedbacks-section {
+            margin-top: 20px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .card {
+            border-radius: 15px; /* Smooth corners */
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+            background: #fff; /* Clean white background */
+            border: 1px solid #e0e0e0; /* Subtle border */
+        }
+
+            .card:hover {
+                transform: scale(1.03); /* Slight scaling effect */
+                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Subtle emphasis on hover */
+            }
+
+        .card-image img, .card-feedback-image img {
+            width: 100%;
+            height: auto; /* Maintain aspect ratio for responsiveness */
+            display: block;
+            object-fit: cover; /* Ensure the image covers the container */
+            aspect-ratio: 16 / 9; /* Balanced aspect ratio */
+        }
+
+        .card-content {
+            padding: 20px; /* Comfortable spacing */
+            color: #333; /* Neutral text color */
+            font-family: 'Arial', sans-serif; /* Clean, modern font */
+            line-height: 1.6; /* Improved readability */
+        }
+
+        .card-title {
+            font-size: 1.5rem; /* Slightly larger for prominence */
+            font-weight: 600; /* Bold for titles */
+            margin-bottom: 10px;
+            color: #2c3e50; /* Professional blue-gray tone */
+        }
+
+        .card-description {
+            font-size: 1rem; /* Standard text size */
+            color: #7f8c8d; /* Softer text color for secondary content */
+        }
+
+        .card-actions {
+            margin-top: 15px;
+            display: flex;
+            justify-content: flex-end; /* Align actions to the right */
+            gap: 10px; /* Spacing between buttons/links */
+        }
+
+            .card-actions button, .card-actions a {
+                padding: 10px 15px;
+                border-radius: 5px;
+                background: #3498db; /* Vibrant primary color */
+                color: #fff;
+                border: none;
+                cursor: pointer;
+                text-decoration: none;
+                transition: background 0.3s ease;
+            }
+
+                .card-actions button:hover, .card-actions a:hover {
+                    background: #2980b9; /* Slightly darker hover effect */
+                }
+
+
+        .service-title, .rating-title {
+            font-weight: bold;
+            color: #800000;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+
+
+
+        .service-rating {
+            font-weight: bold;
+            color: #800000;
+            text-align: left;
+            margin-left: 10px;
+            margin-bottom: 10px;
+        }
+
+        #custfeedbacks {
+            text-align: center;
+        }
+
+
+        .view-more-section {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 50px
+        }
+
+
+        .view-more-link {
+            color: #800000;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+            .view-more-link:hover {
+                color: #a00000;
+                text-decoration: underline;
+            }
+
+        .chat-section {
+            text-align: right;
+            margin-right: 40px;
+        }
+
+        .chat-button {
+            background-color: #800040;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px; /* Space between image and text */
+        }
+
+            .chat-button:hover, .chat-button:focus {
+                background-color: #600030;
+            }
+
+        .chat-icon {
+            width: 30px;
+            height: 30px;
+        }
+
+        .aboutUs-section {
+            padding-left: 50px;
+            padding-right: 50px;
+            margin-bottom: 50px
+        }
+
+        .history-section {
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+
+        #historyTxt {
+            text-align: center;
+            font-weight: bold;
+            font-size: 40px;
+            color: #6f0d4a;
+        }
+
+        /* General Footer Styles */
+        footer {
+            background-color: #f8f8f8;
+            padding: 20px;
+            border-top: 1px solid #ddd;
+            overflow: hidden; /* Ensures no content overflows outside the footer */
+            position: relative; /* Establish a containing block for child elements */
+        }
+
+
+        /* Footer Container */
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap; /* Wrap items if they exceed the width */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            gap: 15px; /* Add spacing between elements */
+        }
+
+        /* Footer Logo */
+        .footer-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+            .footer-logo img {
+                width: 200px;
+                height: auto;
+            }
+
+        /* Footer Navigation */
+        .footer-nav {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column; /* Stack links vertically */
+            align-items: center; /* Center content */
+            gap: 10px; /* Add spacing between links */
+        }
+
+        /* Footer Divider */
+        .footer-divider {
+            display: none; /* Remove divider for mobile */
+        }
+
+        /* Footer Links */
+        .footer-links {
+            justify-content: center;
+            display: flex;
+            flex-wrap: wrap; /* Wrap links on smaller screens */
+            margin-top: 10px;
+            gap: 10px; /* Add spacing between links */
+        }
+
+            .footer-links a {
+                margin: 5px;
+                text-align: center;
+                display: inline-block;
+            }
+
+        /* Footer Social Links */
+        .footer-social {
+            margin-top: 10px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Add spacing between icons */
+        }
+
+            .footer-social a img {
+                width: 30px;
+                height: auto;
+            }
+
+        /* Footer Tagline */
+        .footer-tagline {
+            margin-top: 10px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* Footer Contact */
+        .footer-contact {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 14px;
+            word-wrap: break-word; /* Prevent text from overflowing */
+            display: flex;
+            flex-direction: column; /* Stack content vertically */
+            align-items: center; /* Center text and content */
+        }
+
+        /* Responsive Styles */
+        @@media (max-width: 1004px) {
+            .footer-container {
+                display: flex;
+                flex-direction: column; /* Stack footer sections vertically */
+                align-items: center; /* Center all content */
+                gap: 15px; /* Add spacing between sections */
+            }
+
+            .footer-logo img {
+                width: 150px; /* Adjust logo size for smaller screens */
+                height: auto;
+            }
+
+            .footer-nav, .footer-contact {
+                width: 100%; /* Ensure full width on smaller screens */
+            }
+
+            .footer-links {
+                flex-direction: column; /* Stack links vertically */
+                gap: 10px; /* Add spacing between links */
+            }
+
+            .footer-social {
+                flex-direction: row; /* Keep icons in a row */
+                gap: 10px; /* Add spacing between icons */
+            }
+
+            .row .col.s3 {
+                width: 100% !important;
+                left: auto !important;
+                right: auto !important;
+            }
+
+            .row .col.s4 {
+                width: 100% !important;
+                left: auto !important;
+                right: auto !important;
+            }
+
+            .col-divider, .col-divider1 {
+                border-left: none !important;
+                border-bottom: 3px solid #000;
+                width: 80%;
+                margin-left: 40px;
+                height: auto !important;
+            }
+
+            body {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+        }
+    </style>
+    <div>
+        @RenderBody()
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+
+    <script src="~/Scripts/jquery-3.7.0.min.js"></script>
+
+    <script src="~/Scripts/angular.js"></script>
+
+    <script src="~/Scripts/ng-file-upload.min.js"></script>
+
+    <script src="~/Scripts/AngularJS/Module.js"></script>
+    <script src="~/Scripts/AngularJS/Service.js"></script>
+    <script src="~/Scripts/AngularJS/Controller.js"></script>
+    <script src="DataTables/datatables.min.js"></script>
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @*<script>
+            // Other existing scripts here, if any.
+
+            // "View More" functionality
+            document.getElementById('view-more').addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent default link behavior
+                const hiddenCards = document.querySelectorAll('.hidden-card');
+                hiddenCards.forEach(card => {
+                    card.style.display = 'block';
+                });
+                this.style.display = 'none'; // Hide the "View more" link
+            });
+        </script>*@
+
+
+
+</body>
+</html>

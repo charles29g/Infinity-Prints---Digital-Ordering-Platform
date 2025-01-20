@@ -1,0 +1,255 @@
+﻿@{
+    Layout = "~/Views/Shared/_HomepageLayout.cshtml";
+}
+
+<body>
+    <nav class="nav-extended">
+        <div class="nav-wrapper">
+            <div class="row">
+                <div class="col s6">
+                    <a class="left" id="infinity">Infinity</a>
+                    <a class="left" id="prints">Prints</a>
+                </div>
+                <div class="col s6" style="text-align: right;">
+                    <a id="signIn">Name</a>
+                </div>
+            </div>
+        </div>
+        <div class="nav-content">
+            <ul class="tabs">
+                <li class="tab"><a href="~/Home/Homepage" class="active">Home</a></li>
+                <li class="tab "><a href="#test2">Services</a></li>
+                <li class="tab "><a href="#test3">Reviews</a></li>
+                <li class="tab "><a href="#test4">FAQs</a></li>
+                <li class="tab "><a href="#test5">About Us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="row center" id="row-greet">
+        <div class="col s12">
+            <a id="greet">Welcome Name to</a>
+            <div class="row" id="infinityprintstxt">
+                <a id="infinity2">Infinity</a>
+                <a id="prints2">Prints</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <img id="homeimg" src="~/Content/images/homeimg.png" />
+    </div>
+
+    <div class="row center">
+        <h3 id="servicesTxt"><strong>Services Offered</strong></h3>
+    </div>
+
+    <div class="row" id="services-section">
+        <div class="col s12 m4">
+            <div class="card">
+                <div class="card-image">
+                    <img src="~/Content/images/homeimg.png" alt="Service 1">
+                </div>
+                <div class="card-content">
+                    <h5 class="service-title">Service 1</h5>
+                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit."</p>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m4">
+            <div class="card">
+                <div class="card-image">
+                    <img src="~/Content/images/homeimg.png" alt="Service 2">
+                </div>
+                <div class="card-content">
+                    <h5 class="service-title">Service 2</h5>
+                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit."</p>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m4">
+            <div class="card">
+                <div class="card-image">
+                    <img src="~/Content/images/homeimg.png" alt="Service 3">
+                </div>
+                <div class="card-content">
+                    <h5 class="service-title">Service 3</h5>
+                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="view-more-section">
+        <a href="~/Home/SignIn" id="view-more" class="view-more-link">View more</a>
+    </div>
+
+    <div class="chat-section">
+        <button class="chat-button">
+            <img src="~/Content/images/chatimg.png" alt="Chat Icon" class="chat-icon" />
+            Chat with us
+        </button>
+    </div>
+
+    <hr />
+
+    <div class="row center">
+        <h3 id="feedbacksTxt"><strong>Feedbacks</strong></h3>
+    </div>
+
+    <div class="row" id="feedbacks-section">
+        <div class="col s12 m4">
+            <div>
+                <h5 class="rating-title center">Review 1</h5>
+            </div>
+            <div class="card">
+                <div class="card-feedback-image">
+                    <img src="~/Content/images/homeimg.png" alt="Service 1">
+                </div>
+                <div class="card-feedback">
+                    <h5 class="service-rating"> Rating: </h5>
+                    <p id="custfeedbacks">"Lorem ipsum dolor sit amet, consectetur adipiscing elit."</p>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m4">
+            <div>
+                <h5 class="rating-title center">Review 2</h5>
+            </div>
+            <div class="card">
+                <div class="card-feedback-image">
+                    <img src="~/Content/images/homeimg.png" alt="Service 2">
+                </div>
+                <div class="card-feedback">
+                    <h5 class="service-rating"> Rating: </h5>
+                    <p id="custfeedbacks">"Lorem ipsum dolor sit amet, consectetur adipiscing elit."</p>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m4">
+            <div>
+                <h5 class="rating-title center">Review 3</h5>
+            </div>
+            <div class="card">
+                <div class="card-feedback-image">
+                    <img src="~/Content/images/homeimg.png" alt="Service 3">
+                </div>
+                <div class="card-feedback">
+                    <h5 class="service-rating"> Rating: </h5>
+                    <p id="custfeedbacks">"Lorem ipsum dolor sit amet, consectetur adipiscing elit."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="view-more-section">
+        <a href="~/Home/SignIn" id="view-more" class="view-more-link">View more</a>
+    </div>
+
+    <hr />
+
+    <div class="row center">
+        <h3 id="aboutusTxt"><strong>About Us</strong></h3>
+    </div>
+
+    <div class="row center">
+        <div class="col s12" id="infinityprintstxt">
+            <a id="infinity2">Infinity</a>
+            <a id="prints2" style="color: #6f0d4a">Prints</a>
+        </div>
+    </div>
+
+    <div class="aboutUs-section">
+        <div class="row center">
+            <p>
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            </p>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row center">
+        <div class="col s12">
+            <a id="historyTxt">History</a>
+        </div>
+    </div>
+
+    <div class="history-section">
+        <div class="row center">
+            <p>
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            </p>
+        </div>
+    </div>
+
+    <div class="view-more-section">
+        <a href="~/Home/SignIn" id="view-more" class="view-more-link">View more</a>
+    </div>
+
+
+
+
+    <footer>
+        <div class="footer-container row s12">
+            <div class="footer-logo col s3">
+                <img src="~/Content/images/homeimg.png" alt="Infinity Prints Logo">
+            </div>
+            <div class="col col-divider1 s0" style="height:200px"></div>
+            <div class="footer-nav col s4 center">
+                <div class="row footer-links">
+                    <div class="col">
+                        <a href="">Homepage</a>
+                    </div>
+                    <div class="col">
+                        <a href="">Services</a>
+                    </div>
+                    <div class="col">
+                        <a href="">Reviews</a>
+                    </div>
+                </div>
+                <div class="row footer-links">
+                    <div class="col">
+                        <a href="">Homepage</a>
+                    </div>
+                    <div class="col">
+                        <a href="">Services</a>
+                    </div>
+                    <div class="col">
+                        <a href="">Reviews</a>
+                    </div>
+                </div>
+
+                <div class="footer-social">
+                    <a href="#"><img src="x-icon.png" alt="X"></a>
+                    <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
+                    <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
+                    <a href="#"><img src="viber-icon.png" alt="Viber"></a>
+                </div>
+
+                <div class="footer-tagline">
+                    <p>Infinity Prints: Putting Your Ideas Into Print</p>
+                </div>
+            </div>
+            <div class="col col-divider s0" style="height:200px"></div>
+
+            <div class="footer-contact col s3 center">
+                <h4>Contact US</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+
+        </div>
+    </footer>
+
+
+
+
+
+
+
+</body>
+
+
