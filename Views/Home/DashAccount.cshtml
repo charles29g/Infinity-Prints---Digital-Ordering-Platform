@@ -1,0 +1,313 @@
+
+@{
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<style>
+    .dashboard-page {
+        display: flex;
+        flex-direction: row;
+        height: 100vh;
+        width: 100%;
+        margin: 0;
+    }
+
+        .dashboard-page .content {
+            margin-left: 300px;
+            padding: 30px;
+            width: calc(100% - 300px);
+            overflow-y: auto;
+            height: 100vh;
+        }
+
+        .dashboard-page .content {
+            margin-left: 300px; /* Sidebar width */
+            padding: 30px;
+            width: calc(100% - 300px); /* Adjust content width according to sidebar */
+            overflow-y: auto;
+            height: 100vh;
+            transition: margin-left 0.3s ease, width 0.3s ease; /* Smooth transition */
+        }
+
+    .content {
+        margin-left: 300px; /* Sidebar width */
+        padding: 30px;
+        width: calc(60% - 300px); /* Adjust content width dynamically */
+        overflow-y: auto;
+        height: 100vh;
+        transition: margin-left 0.3s ease, width 0.3s ease;
+    }
+
+    .content {
+        margin-left: 500px; /* Adjust content margin when sidebar shrinks */
+    }
+
+    /* Form controls styling */
+    .form-control {
+        font-size: 1.2rem;
+        padding: 12px;
+        margin-bottom: 20px;
+        width: 100%; /* Ensure form controls stretch to full width */
+    }
+
+        /* Readonly form control styling */
+        .form-control[disabled] {
+            background-color: #e9ecef;
+        }
+
+    /* Button styles */
+    .update-btn {
+        display: none;
+        font-size: 1.2rem;
+        padding: 12px 20px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        height: 60px;
+    }
+
+        .update-btn:hover {
+            background-color: #218838;
+        }
+
+        .update-btn.show {
+            display: block; /* Show the button when class "show" is added */
+        }
+
+    .button-group {
+        display: flex;
+        gap: 20px; /* Add space between buttons */
+        margin-top: 20px; /* Add some spacing from previous form element */
+        justify-content: center; /* Center the buttons horizontally */
+        width: 100%; /* Ensure it takes full width */
+    }
+
+
+    /* Red button for Delete Account */
+    .btn-red {
+        font-size: 1.2rem;
+        padding: 12px 20px;
+        background-color: #dc3545; /* Red color */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        height: 60px;
+    }
+
+        .btn-red:hover {
+            background-color: #c82333; /* Darker red on hover */
+        }
+
+    .btn-green {
+        font-size: 1.2rem;
+        padding: 12px 20px;
+        background-color: #28a745; /* Green color */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        height: 60px;
+    }
+
+        .btn-green:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+
+
+    .content h2 {
+        text-align: center; /* Center the text */
+        font-size: 3rem; /* Increase the font size to make it bigger */
+        font-weight: bold; /* Optionally, make it bold for better emphasis */
+    }
+
+    .password-container {
+        display: flex; /* Use flexbox to align items horizontally */
+        align-items: center; /* Vertically align the input and button */
+    }
+
+        .password-container .form-control {
+            flex-grow: 1; /* Make the input field take up most of the space */
+            margin-right: 10px; /* Add space between input and button */
+        }
+
+    .change-btn {
+        font-size: 1rem;
+        padding: 0 16px; /* Adjust the horizontal padding */
+        height: 50px; /* Ensure the button height matches the input */
+        margin-bottom: 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .change-btn:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+</style>
+
+<body>
+    <div class="sidebar">
+        <h1>InfinityPrintz<br> Admin Panel</h1>
+        <ul>
+            <li style="margin-bottom: 5px;" class="active">
+                <a ng-href="/Home/DashAccount">
+                    <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
+                        <i class="fas fa-user-circle active" style="font-size: 18px;"></i>
+                    </span>
+                    Account
+                </a>
+            </li>
+            <li style="margin-bottom: 5px;" ng-show=false>
+                <a ng-href="/Home/DashBooking">
+                    <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
+                        <i class="fas fa-star" style="font-size: 18px;"></i>
+                    </span>
+                    Reviews
+                </a>
+            </li>
+
+            <li style="margin-bottom: 5px;">
+                <a ng-href="/Home/DashService">
+                    <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
+                        <i class="fas fa-shopping-cart" style="font-size: 18px;"></i>
+                    </span>
+                    Services
+                </a>
+            </li>
+            <li style="margin-bottom: 5px;">
+                <a ng-href="/Home/DashOrders">
+                    <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
+                        <i class="fas fa-box-open" style="font-size: 18px;"></i>
+                    </span>
+                    Orders
+                </a>
+            </li>
+            <li style="margin-bottom: 5px;">
+                <a ng-href="/Home/DashUsers">
+                    <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
+                        <i class="fas fa-users" style="font-size: 18px;"></i>
+                    </span>
+                    Users
+                </a>
+            </li>
+            <li style="margin-bottom: 5px;">
+                <a ng-href="/Home/DashPayments">
+                    <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
+                        <i class="fas fa-credit-card" style="font-size: 18px;"></i>
+                    </span>
+                    Payment
+                </a>
+            </li>
+            <li style="margin-bottom: 5px;">
+                <a ng-href="/Home/DashLog">
+                    <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
+                        <i class="fas fa-comments" style="font-size: 18px;"></i>
+                    </span>
+                    Chat
+                </a>
+            </li>
+            <li style="margin-bottom: 5px;">
+                <a ng-href="/Home/DashManual">
+                    <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
+                        <i class="fas fa-book-open" style="font-size: 18px;"></i>
+                    </span>
+                    User Guide
+                </a>
+            </li>
+            <li style="margin-bottom: 5px;">
+                <a ng-href="/Home/DashStatus">
+                    <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
+                        <i class="fas fa-spinner active" style="font-size: 18px;"></i>
+                    </span>
+                    Status
+                </a>
+            </li>
+            <li style="margin-bottom: 5px;">
+                <a ng-href="/Home/DashReceipt">
+                    <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
+                        <i class="fas fa-receipt" style="font-size: 18px;"></i>
+                    </span>
+                    Receipts
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <button class="logout-btn" ng-click="logoutfunc()">
+                    <p class="user-name"><i class="fas fa-user-circle"></i> {{ getFullName }}</p>
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="content" ng-init="loadUsers()">
+        <h2>Account</h2>
+        <hr>
+        <div ng-repeat="pDATA in UsersData | filter:{UserID: 44} ">
+
+            <form id="profileForm">
+                <div>
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" ng-model="pDATA.FName" />
+                </div>
+                <div>
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" ng-model="pDATA.LName" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="text" class="form-control" ng-model="pDATA.PhoneNum" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" ng-model="pDATA.UName" />
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Email" readonly />
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="password-container">
+                        <input type="password" class="form-control" id="password" placeholder="Password" readonly />
+                        <button type="button" class="btn btn-primary change-btn" ng-click="sendEmailChangePass(pDATA.UserID,pDATA.Email)">Change</button>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-red">Delete Account</button>
+                    <button type="button" class="btn btn-green" ng-click="updateSelf(pDATA)">Update Details</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('profileForm').addEventListener('input', function () {
+            var updateButton = document.getElementById('updateButton');
+            var formElements = document.querySelectorAll('#profileForm input');
+            var isFilled = Array.from(formElements).some(function (input) {
+                return input.value.trim() !== '';
+            });
+
+            if (isFilled) {
+                updateButton.classList.add('show');
+            } else {
+                updateButton.classList.remove('show');
+            }
+        });</script>
+
+</body>

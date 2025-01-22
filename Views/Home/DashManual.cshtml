@@ -1,13 +1,14 @@
-﻿@{
+
+@{
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 
 <body>
     <div class="sidebar">
         <h1>InfinityPrintz<br> Admin Panel</h1>
-        <ul style="list-style-type: none; padding: 0;">
+        <ul>
             <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashboardAdmin">
+                <a ng-href="/Home/DashAccount">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
                         <i class="fas fa-user-circle" style="font-size: 18px;"></i>
                     </span>
@@ -24,7 +25,7 @@
             </li>
 
             <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashPackage">
+                <a ng-href="/Home/DashService">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
                         <i class="fas fa-shopping-cart" style="font-size: 18px;"></i>
                     </span>
@@ -32,23 +33,15 @@
                 </a>
             </li>
             <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashPackage">
+                <a ng-href="/Home/DashOrders">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
                         <i class="fas fa-box-open" style="font-size: 18px;"></i>
                     </span>
                     Orders
                 </a>
             </li>
-            <li style="margin-bottom: 5px;" class="active">
-                <a ng-href="/Home/DashPackage">
-                    <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
-                        <i class="fas fa-file-alt active" style="font-size: 18px;"></i>
-                    </span>
-                    Content
-                </a>
-            </li>
             <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashReceipts">
+                <a ng-href="/Home/DashUsers">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
                         <i class="fas fa-users" style="font-size: 18px;"></i>
                     </span>
@@ -56,7 +49,7 @@
                 </a>
             </li>
             <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashDiscount">
+                <a ng-href="/Home/DashPayments">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
                         <i class="fas fa-credit-card" style="font-size: 18px;"></i>
                     </span>
@@ -72,23 +65,30 @@
                 </a>
             </li>
             <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashUser">
+                <a ng-href="/Home/DashManual" class="active">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
-                        <i class="fas fa-book-open" style="font-size: 18px;"></i>
+                        <i class="fas fa-book-open active" style="font-size: 18px;"></i>
                     </span>
                     User Guide
                 </a>
             </li>
             <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashUser">
+                <a ng-href="/Home/DashStatus">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
-                        <i class="fas fa-spinner " style="font-size: 18px;"></i>
+                        <i class="fas fa-spinner active" style="font-size: 18px;"></i>
                     </span>
                     Status
                 </a>
             </li>
+            <li style="margin-bottom: 5px;">
+                <a ng-href="/Home/DashReceipt">
+                    <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
+                        <i class="fas fa-receipt" style="font-size: 18px;"></i>
+                    </span>
+                    Receipts
+                </a>
+            </li>
         </ul>
-
         <div class="sidebar-footer">
             <div class="user-info">
                 <button class="logout-btn" ng-click="logoutfunc()">
@@ -103,36 +103,88 @@
     <div class="main-content">
         <p style="text-align: right;">Employee Dashboard</p>
         <h1 style="font-size: 2.5rem; font-weight: 600; color: #6f0d4a;  text-align: center;">
-            Content
+            Customers
         </h1>
-        <div class="row white-text m2" ng-init="loadContents()">
+    </div>
+
+    <div class="main-content">
+        <p style="text-align: right;">Employee Dashboard</p>
+        <h1 style="font-size: 2.5rem; font-weight: 600; color: #6f0d4a;  text-align: center;">
+            Employees
+        </h1>
+        <div class="row white-text m2" ng-init="loadUsers()">
 
             <div class="table-wrapper">
                 <table id="myTable" class="display">
                     <thead>
                         <tr>
-                            <th>Content ID</th>
-                            <th>Content Name</th>
-                            <th>Description</th>
-                            <th>Image Path</th>
+                            <th>User ID</th>
+                            <th>Last Name</th>
+                            <th>First Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>User Name</th>
+                            <th>Role</th>
                             <th>Created At</th>
                             <th>Updated At</th>
                             <th>Delete</th>
-                            <th><button ng-click="sendEmail()">Test</button></th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="pDATA in ContentsData">
-                            <td>{{pDATA.ContID}}</td>
-
-                            <td>{{pDATA.ContName}}</td>
-                            <td>{{pDATA.Desc}}</td>
-                            <td>{{pDATA.IMG_Path}}</td>
-
+                        <tr ng-repeat="pDATA in UsersData">
+                            <td>{{pDATA.UserID}}</td>
+                            <td>{{pDATA.LName}}</td>
+                            <td>{{pDATA.FName}}</td>
+                            <td>{{pDATA.Email}}</td>
+                            <td>{{pDATA.PhoneNum}}</td>
+                            <td>{{pDATA.UName}}</td>
+                            <td>{{pDATA.Role}}</td>
                             <td>{{DateFormat(pDATA.CreatedAt)}}</td>
                             <td>{{DateFormat(pDATA.UpdatedAt)}}</td>
                             <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <p style="text-align: right;">Employee Dashboard</p>
+        <h1 style="font-size: 2.5rem; font-weight: 600; color: #6f0d4a;  text-align: center;">
+            Task Authorizations
+        </h1>
+        <div class="row white-text m2" ng-init="loadUsers()">
+
+            <div class="table-wrapper">
+                <table id="myTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Last Name</th>
+                            <th>First Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>User Name</th>
+                            <th>Role</th>
+                            <th>Created At</th>
+                            <th>Updated At</th>
+                            <th>Delete</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="pDATA in UsersData">
+                            <td>{{pDATA.UserID}}</td>
+                            <td>{{pDATA.LName}}</td>
+                            <td>{{pDATA.FName}}</td>
+                            <td>{{pDATA.Email}}</td>
+                            <td>{{pDATA.PhoneNum}}</td>
+                            <td>{{pDATA.UName}}</td>
+                            <td>{{pDATA.Role}}</td>
+                            <td>{{DateFormat(pDATA.CreatedAt)}}</td>
+                            <td>{{DateFormat(pDATA.UpdatedAt)}}</td>
                             <td></td>
                         </tr>
                     </tbody>

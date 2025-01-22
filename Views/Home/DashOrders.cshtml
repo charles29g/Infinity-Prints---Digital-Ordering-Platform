@@ -5,9 +5,9 @@
 <body>
     <div class="sidebar">
         <h1>InfinityPrintz<br> Admin Panel</h1>
-        <ul style="list-style-type: none; padding: 0;">
+        <ul>
             <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashboardAdmin">
+                <a ng-href="/Home/DashAccount">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
                         <i class="fas fa-user-circle" style="font-size: 18px;"></i>
                     </span>
@@ -24,31 +24,23 @@
             </li>
 
             <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashPackage">
+                <a ng-href="/Home/DashService">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
                         <i class="fas fa-shopping-cart" style="font-size: 18px;"></i>
                     </span>
                     Services
                 </a>
             </li>
-            <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashPackage">
+            <li style="margin-bottom: 5px;" class="active">
+                <a ng-href="/Home/DashOrders">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
-                        <i class="fas fa-box-open" style="font-size: 18px;"></i>
+                        <i class="fas fa-box-open active" style="font-size: 18px;"></i>
                     </span>
                     Orders
                 </a>
             </li>
             <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashPackage">
-                    <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
-                        <i class="fas fa-file-alt" style="font-size: 18px;"></i>
-                    </span>
-                    Content
-                </a>
-            </li>
-            <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashReceipts">
+                <a ng-href="/Home/DashUsers">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
                         <i class="fas fa-users" style="font-size: 18px;"></i>
                     </span>
@@ -56,7 +48,7 @@
                 </a>
             </li>
             <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashDiscount">
+                <a ng-href="/Home/DashPayments">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
                         <i class="fas fa-credit-card" style="font-size: 18px;"></i>
                     </span>
@@ -72,7 +64,7 @@
                 </a>
             </li>
             <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashUser">
+                <a ng-href="/Home/DashManual">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
                         <i class="fas fa-book-open" style="font-size: 18px;"></i>
                     </span>
@@ -80,23 +72,22 @@
                 </a>
             </li>
             <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashUser">
+                <a ng-href="/Home/DashStatus">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
-                        <i class="fas fa-spinner " style="font-size: 18px;"></i>
+                        <i class="fas fa-spinner active" style="font-size: 18px;"></i>
                     </span>
                     Status
                 </a>
             </li>
-            <li style="margin-bottom: 5px;" class="active">
-                <a ng-href="/Home/DashUser">
+            <li style="margin-bottom: 5px;">
+                <a ng-href="/Home/DashReceipt">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
-                        <i class="fas fa-receipt active" style="font-size: 18px;"></i>
+                        <i class="fas fa-receipt" style="font-size: 18px;"></i>
                     </span>
                     Receipts
                 </a>
             </li>
         </ul>
-
         <div class="sidebar-footer">
             <div class="user-info">
                 <button class="logout-btn" ng-click="logoutfunc()">
@@ -109,9 +100,177 @@
     </div>
 
     <div class="main-content">
-        <p style="text-align: right;">Employee Dashboard</p>
+        <p style="text-align: right;">Dashboard</p>
         <h1 style="font-size: 2.5rem; font-weight: 600; color: #6f0d4a;  text-align: center;">
-            Order
+            Pending Orders
+        </h1>
+        <div class="row white-text m2" ng-init="loadOrders()">
+
+            <div class="table-wrapper">
+                <table id="myTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>User ID</th>
+                            <th>File Quantity</th>
+                            <th>File Path</th>
+                            <th>Size</th>
+                            <th>Total Price</th>
+                            <th>Request</th>
+                            <th>Created At</th>
+                            <th>StatusID</th>
+                            <th>Delete</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="pDATA in OrdersData">
+                            <td>{{pDATA.OrderID}}</td>
+                            <td>{{pDATA.UserID}}</td>
+                            <td>{{pDATA.FileQuantity}}</td>
+                            <td>{{pDATA.FilePath}}</td>
+                            <td>{{pDATA.Size}}</td>
+                            <td>{{pDATA.TotalPrice}}</td>
+                            <td>{{pDATA.Request}}</td>
+                            <td>{{DateFormat(pDATA.CreatedAt)}}</td>
+                            <td>{{pDATA.StatusID}}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h1 style="font-size: 2.5rem; font-weight: 600; color: #6f0d4a;  text-align: center;">
+            Your Orders
+        </h1>
+        <div class="row white-text m2" ng-init="loadOrders()">
+
+            <div class="table-wrapper">
+                <table id="myTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>User ID</th>
+                            <th>File Quantity</th>
+                            <th>File Path</th>
+                            <th>Size</th>
+                            <th>Total Price</th>
+                            <th>Request</th>
+                            <th>Created At</th>
+                            <th>StatusID</th>
+                            <th>Delete</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="pDATA in OrdersData">
+                            <td>{{pDATA.OrderID}}</td>
+                            <td>{{pDATA.UserID}}</td>
+                            <td>{{pDATA.FileQuantity}}</td>
+                            <td>{{pDATA.FilePath}}</td>
+                            <td>{{pDATA.Size}}</td>
+                            <td>{{pDATA.TotalPrice}}</td>
+                            <td>{{pDATA.Request}}</td>
+                            <td>{{DateFormat(pDATA.CreatedAt)}}</td>
+                            <td>{{pDATA.StatusID}}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h1 style="font-size: 2.5rem; font-weight: 600; color: #6f0d4a;  text-align: center;">
+            Manage Orders
+        </h1>
+        <div class="row white-text m2" ng-init="loadOrders()">
+
+            <div class="table-wrapper">
+                <table id="myTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>User ID</th>
+                            <th>File Quantity</th>
+                            <th>File Path</th>
+                            <th>Size</th>
+                            <th>Total Price</th>
+                            <th>Request</th>
+                            <th>Created At</th>
+                            <th>StatusID</th>
+                            <th>Delete</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="pDATA in OrdersData">
+                            <td>{{pDATA.OrderID}}</td>
+                            <td>{{pDATA.UserID}}</td>
+                            <td>{{pDATA.FileQuantity}}</td>
+                            <td>{{pDATA.FilePath}}</td>
+                            <td>{{pDATA.Size}}</td>
+                            <td>{{pDATA.TotalPrice}}</td>
+                            <td>{{pDATA.Request}}</td>
+                            <td>{{DateFormat(pDATA.CreatedAt)}}</td>
+                            <td>{{pDATA.StatusID}}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h1 style="font-size: 2.5rem; font-weight: 600; color: #6f0d4a;  text-align: center;">
+            Task Authorizations
+        </h1>
+        <div class="row white-text m2" ng-init="loadOrders()">
+
+            <div class="table-wrapper">
+                <table id="myTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>User ID</th>
+                            <th>File Quantity</th>
+                            <th>File Path</th>
+                            <th>Size</th>
+                            <th>Total Price</th>
+                            <th>Request</th>
+                            <th>Created At</th>
+                            <th>StatusID</th>
+                            <th>Delete</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="pDATA in OrdersData">
+                            <td>{{pDATA.OrderID}}</td>
+                            <td>{{pDATA.UserID}}</td>
+                            <td>{{pDATA.FileQuantity}}</td>
+                            <td>{{pDATA.FilePath}}</td>
+                            <td>{{pDATA.Size}}</td>
+                            <td>{{pDATA.TotalPrice}}</td>
+                            <td>{{pDATA.Request}}</td>
+                            <td>{{DateFormat(pDATA.CreatedAt)}}</td>
+                            <td>{{pDATA.StatusID}}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h1 style="font-size: 2.5rem; font-weight: 600; color: #6f0d4a;  text-align: center;">
+            Finished Orders
         </h1>
         <div class="row white-text m2" ng-init="loadOrders()">
 

@@ -127,4 +127,33 @@ app.service("IPService", function ($http) {
     };
 
 
+
+    this.UpdateSelf = function (userDataUpdate) {
+
+        console.log(userDataUpdate + "Service")
+        var Insert = $http({
+            method: "post",
+            url: "Home/UpdateSelf",
+            data: {
+                userDataUpdate
+            }
+
+
+        });
+
+        return Insert;
+    };
+
+
+
+    this.ValidatePassword = function (passwordData) {
+        return $http({
+            method: "POST",
+            url: "Home/ValidatePassword",
+            data: passwordData
+        });
+    };
+
+
+
 })
