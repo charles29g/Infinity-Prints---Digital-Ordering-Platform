@@ -247,6 +247,7 @@
     <Compile Include="Models\tbl_usersMap.cs" />
     <Compile Include="Models\tbl_usersModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Views\Home\DashAccount.cshtml" />
     <None Include="Views\Home\ForgotPasswordEmail.cshtml" />
     <Content Include="Content\materialize.css" />
     <Content Include="Content\materialize.min.css" />

@@ -35,7 +35,12 @@ namespace InfinityPrints.Controllers
             return View();
         }
 
-        public ActionResult DashContent()
+        public ActionResult DashAccount()
+        {
+            return View();
+        }
+
+            public ActionResult DashContent()
         {
 
             return View();
