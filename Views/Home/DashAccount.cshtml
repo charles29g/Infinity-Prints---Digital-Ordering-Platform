@@ -101,6 +101,9 @@
             background-color: #c82333; /* Darker red on hover */
         }
 
+
+
+
     .content h2 {
         text-align: center; /* Center the text */
         font-size: 3rem; /* Increase the font size to make it bigger */
@@ -149,7 +152,7 @@
                     Account
                 </a>
             </li>
-            <li style="margin-bottom: 5px;">
+            <li style="margin-bottom: 5px;" ng-show=false>
                 <a ng-href="/Home/DashBooking">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
                         <i class="fas fa-star" style="font-size: 18px;"></i>
@@ -237,48 +240,50 @@
     <div class="content">
         <h2>Account</h2>
         <hr>
-        <h1>@ViewBag.Title</h1>
-        <form id="profileForm">
-            <div>
-                <label for="firstName" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="firstName" placeholder="First Name" />
-            </div>
-            <div>
-                <label for="lastName" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="lastName" placeholder="Last Name" />
-            </div>
+        <div ng-repeat="pDATA in UsersData | filter:{UserID: 43} ">
 
-            <div class="mb-3">
-                <label for="phone" class="form-label">Phone Number</label>
-                <input type="text" class="form-control" id="phone" placeholder="Phone Number" />
-            </div>
-
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="Username" />
-            </div>
-
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="text" class="form-control" id="email" placeholder="Email" disabled />
-            </div>
-
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <div class="password-container">
-                    <input type="text" class="form-control" id="password" placeholder="Password" disabled />
-                    <button type="button" class="btn btn-primary change-btn">Change</button>
+            <form id="profileForm">
+                <div>
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" ng-model="pDATA.FName" />
                 </div>
-            </div>
+                <div>
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" ng-model="pDATA.LName" />
+                </div>
 
-            <div class="button-group">
-                <button type="button" id="updateButton" class="update-btn">Update</button>
-                <button type="button" class="btn btn-red">Delete Account</button>
-            </div>
-        </form>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="text" class="form-control" ng-model="pDATA.PhoneNum" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" ng-model="pDATA.UName" />
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Email" readonly />
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="password-container">
+                        <input type="password" class="form-control" id="password" placeholder="Password" readonly />
+                        <button type="button" class="btn btn-primary change-btn" ng-click="sendEmailChangePass(pDATA.UserID,pDATA.Email)">Change</button>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-red">Delete Account</button>
+                    <button type="button" class="btn btn-success">Update Details</button>
+
+                </div>
+            </form>
+        </div>
     </div>
 
-    <script>document.getElementById('profileForm').addEventListener('input', function () {
+    <script>
+        document.getElementById('profileForm').addEventListener('input', function () {
             var updateButton = document.getElementById('updateButton');
             var formElements = document.querySelectorAll('#profileForm input');
             var isFilled = Array.from(formElements).some(function (input) {
