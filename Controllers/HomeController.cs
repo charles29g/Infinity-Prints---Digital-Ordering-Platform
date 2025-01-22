@@ -40,11 +40,6 @@ namespace InfinityPrints.Controllers
             return View();
         }
 
-            public ActionResult DashContent()
-        {
-
-            return View();
-        }
         public ActionResult DashUsers()
         {
 
@@ -90,6 +85,10 @@ namespace InfinityPrints.Controllers
         public ActionResult DashPayments()
         {
 
+            return View();
+        }
+        public ActionResult DashManual()
+        {
             return View();
         }
 

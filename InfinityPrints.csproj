@@ -248,6 +248,7 @@
     <Compile Include="Models\tbl_usersModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Views\Home\DashAccount.cshtml" />
+    <Content Include="Views\Home\DashManual.cshtml" />
     <None Include="Views\Home\ForgotPasswordEmail.cshtml" />
     <Content Include="Content\materialize.css" />
     <Content Include="Content\materialize.min.css" />
@@ -261,7 +262,6 @@
       <BrowseToURL>~/Home/ConfirmationPage%3fuserID=1</BrowseToURL>
     </Content>
     <None Include="Views\Home\DashStatus.cshtml" />
-    <None Include="Views\Home\DashContent.cshtml" />
     <Content Include="Content\datatables.css" />
     <Content Include="Content\datatables.min.css" />
     <Content Include="Scripts\angular-animate.js" />
