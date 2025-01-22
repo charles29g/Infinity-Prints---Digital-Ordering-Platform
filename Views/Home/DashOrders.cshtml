@@ -31,26 +31,18 @@
                     Services
                 </a>
             </li>
-            <li style="margin-bottom: 5px;">
+            <li style="margin-bottom: 5px;" class="active">
                 <a ng-href="/Home/DashOrders">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
-                        <i class="fas fa-box-open" style="font-size: 18px;"></i>
+                        <i class="fas fa-box-open active" style="font-size: 18px;"></i>
                     </span>
                     Orders
                 </a>
             </li>
             <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashContent">
-                    <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
-                        <i class="fas fa-file-alt" style="font-size: 18px;"></i>
-                    </span>
-                    Content
-                </a>
-            </li>
-            <li style="margin-bottom: 5px;" class="active">
                 <a ng-href="/Home/DashUsers">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
-                        <i class="fas fa-users active" style="font-size: 18px;"></i>
+                        <i class="fas fa-users" style="font-size: 18px;"></i>
                     </span>
                     Users
                 </a>
@@ -72,7 +64,7 @@
                 </a>
             </li>
             <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashUser">
+                <a ng-href="/Home/DashManual">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
                         <i class="fas fa-book-open" style="font-size: 18px;"></i>
                     </span>
@@ -108,9 +100,177 @@
     </div>
 
     <div class="main-content">
-        <p style="text-align: right;">Employee Dashboard</p>
+        <p style="text-align: right;">Dashboard</p>
         <h1 style="font-size: 2.5rem; font-weight: 600; color: #6f0d4a;  text-align: center;">
-            Order
+            Pending Orders
+        </h1>
+        <div class="row white-text m2" ng-init="loadOrders()">
+
+            <div class="table-wrapper">
+                <table id="myTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>User ID</th>
+                            <th>File Quantity</th>
+                            <th>File Path</th>
+                            <th>Size</th>
+                            <th>Total Price</th>
+                            <th>Request</th>
+                            <th>Created At</th>
+                            <th>StatusID</th>
+                            <th>Delete</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="pDATA in OrdersData">
+                            <td>{{pDATA.OrderID}}</td>
+                            <td>{{pDATA.UserID}}</td>
+                            <td>{{pDATA.FileQuantity}}</td>
+                            <td>{{pDATA.FilePath}}</td>
+                            <td>{{pDATA.Size}}</td>
+                            <td>{{pDATA.TotalPrice}}</td>
+                            <td>{{pDATA.Request}}</td>
+                            <td>{{DateFormat(pDATA.CreatedAt)}}</td>
+                            <td>{{pDATA.StatusID}}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h1 style="font-size: 2.5rem; font-weight: 600; color: #6f0d4a;  text-align: center;">
+            Your Orders
+        </h1>
+        <div class="row white-text m2" ng-init="loadOrders()">
+
+            <div class="table-wrapper">
+                <table id="myTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>User ID</th>
+                            <th>File Quantity</th>
+                            <th>File Path</th>
+                            <th>Size</th>
+                            <th>Total Price</th>
+                            <th>Request</th>
+                            <th>Created At</th>
+                            <th>StatusID</th>
+                            <th>Delete</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="pDATA in OrdersData">
+                            <td>{{pDATA.OrderID}}</td>
+                            <td>{{pDATA.UserID}}</td>
+                            <td>{{pDATA.FileQuantity}}</td>
+                            <td>{{pDATA.FilePath}}</td>
+                            <td>{{pDATA.Size}}</td>
+                            <td>{{pDATA.TotalPrice}}</td>
+                            <td>{{pDATA.Request}}</td>
+                            <td>{{DateFormat(pDATA.CreatedAt)}}</td>
+                            <td>{{pDATA.StatusID}}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h1 style="font-size: 2.5rem; font-weight: 600; color: #6f0d4a;  text-align: center;">
+            Manage Orders
+        </h1>
+        <div class="row white-text m2" ng-init="loadOrders()">
+
+            <div class="table-wrapper">
+                <table id="myTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>User ID</th>
+                            <th>File Quantity</th>
+                            <th>File Path</th>
+                            <th>Size</th>
+                            <th>Total Price</th>
+                            <th>Request</th>
+                            <th>Created At</th>
+                            <th>StatusID</th>
+                            <th>Delete</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="pDATA in OrdersData">
+                            <td>{{pDATA.OrderID}}</td>
+                            <td>{{pDATA.UserID}}</td>
+                            <td>{{pDATA.FileQuantity}}</td>
+                            <td>{{pDATA.FilePath}}</td>
+                            <td>{{pDATA.Size}}</td>
+                            <td>{{pDATA.TotalPrice}}</td>
+                            <td>{{pDATA.Request}}</td>
+                            <td>{{DateFormat(pDATA.CreatedAt)}}</td>
+                            <td>{{pDATA.StatusID}}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h1 style="font-size: 2.5rem; font-weight: 600; color: #6f0d4a;  text-align: center;">
+            Task Authorizations
+        </h1>
+        <div class="row white-text m2" ng-init="loadOrders()">
+
+            <div class="table-wrapper">
+                <table id="myTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>User ID</th>
+                            <th>File Quantity</th>
+                            <th>File Path</th>
+                            <th>Size</th>
+                            <th>Total Price</th>
+                            <th>Request</th>
+                            <th>Created At</th>
+                            <th>StatusID</th>
+                            <th>Delete</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="pDATA in OrdersData">
+                            <td>{{pDATA.OrderID}}</td>
+                            <td>{{pDATA.UserID}}</td>
+                            <td>{{pDATA.FileQuantity}}</td>
+                            <td>{{pDATA.FilePath}}</td>
+                            <td>{{pDATA.Size}}</td>
+                            <td>{{pDATA.TotalPrice}}</td>
+                            <td>{{pDATA.Request}}</td>
+                            <td>{{DateFormat(pDATA.CreatedAt)}}</td>
+                            <td>{{pDATA.StatusID}}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h1 style="font-size: 2.5rem; font-weight: 600; color: #6f0d4a;  text-align: center;">
+            Finished Orders
         </h1>
         <div class="row white-text m2" ng-init="loadOrders()">
 

@@ -214,7 +214,7 @@
         });
     };
 
-    $scope.sendEmail = function (encryptedUserId,email) {
+    $scope.sendEmail = function (encryptedUserId, email) {
         // Construct the URL with the encrypted userID
         var url = `https://localhost:44399/Home/ConfirmationPage?userID=${encryptedUserId}`;
 
@@ -565,12 +565,126 @@
     };
 
 
+    //$scope.updateSelf = function (pDATA) {
+    //    Swal.fire({
+    //        title: "Are you sure?",
+    //        text: "You are about to update your user details.",
+    //        icon: "warning",
+    //        showCancelButton: true,
+    //        confirmButtonColor: "#3085d6",
+    //        cancelButtonColor: "#d33",
+    //        confirmButtonText: "Yes, update it!",
+    //        cancelButtonText: "Cancel"
+    //    }).then((result) => {
+    //        if (result.isConfirmed) {
+    //            var userDataUpdate = {
+    //                userID: 44,
+    //                Fname: pDATA.FName,
+    //                Lname: pDATA.LName,
+    //                Email: pDATA.Email,
+    //                UName: pDATA.UName,
+    //                PhoneNum: pDATA.PhoneNum,
+
+
+    //            };
+
+    //            console.log(userDataUpdate + " in controller");
+
+    //            var postData = IPService.UpdateSelf(userDataUpdate)
+
+    //            postData.then(function (ReturnedData) {
+    //                var response = ReturnedData.data;
+
+    //                console.log(response);
+    //                if (response.success) {
+    //                    Swal.fire("Updated!", "User details updated successfully.", "success");
+    //                } else {
+    //                    Swal.fire("Error!", "Error updating user details.", "error");
+    //                }
+    //            }, function (error) {
+    //                console.error('Error updating user: ', error);
+    //                Swal.fire("Error!", "An error occurred while updating.", "error");
+    //            });
+    //        }
+    //    });
+    //};
 
 
 
+    $scope.updateSelf = function (pDATA) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You are about to update your user details. Please enter your password to continue.",
+            icon: "warning",
+            input: 'password', // Input type: 'password' will hide the text input.
+            inputLabel: 'Password',
+            inputPlaceholder: 'Enter your password',
+            inputAttributes: {
+                autocapitalize: 'off'
+            },
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, update it!",
+            cancelButtonText: "Cancel"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const enteredPassword = result.value; // This will get the password entered by the user.
 
+                // Check if the password field is empty
+                if (!enteredPassword) {
+                    Swal.fire("Error!", "Password is required.", "error");
+                    return; // If no password entered, prevent the rest of the function from running.
+                }
 
+                // Call the server to validate the password
+                var passwordValidation = IPService.ValidatePassword({
+                    userID: 44,  // Or the logged-in user's ID
+                    password: enteredPassword
+                });
 
+                passwordValidation.then(function (validationResponse) {
+                    var validationData = validationResponse.data;
+
+                    if (validationData.success) {
+                        // Password is correct, proceed with updating user details
+                        var userDataUpdate = {
+                            userID: 44,
+                            Fname: pDATA.FName,
+                            Lname: pDATA.LName,
+                            Email: pDATA.Email,
+                            UName: pDATA.UName,
+                            PhoneNum: pDATA.PhoneNum
+                        };
+
+                        console.log(userDataUpdate + " in controller");
+
+                        var postData = IPService.UpdateSelf(userDataUpdate);
+
+                        postData.then(function (ReturnedData) {
+                            var response = ReturnedData.data;
+
+                            console.log(response);
+                            if (response.success) {
+                                Swal.fire("Updated!", "User details updated successfully.", "success");
+                            } else {
+                                Swal.fire("Error!", "Error updating user details.", "error");
+                            }
+                        }, function (error) {
+                            console.error('Error updating user: ', error);
+                            Swal.fire("Error!", "An error occurred while updating.", "error");
+                        });
+                    } else {
+                        // Password did not match
+                        Swal.fire("Error!", "Incorrect password. Please try again.", "error");
+                    }
+                }, function (error) {
+                    console.error('Error validating password: ', error);
+                    Swal.fire("Error!", "An error occurred while validating the password.", "error");
+                });
+            }
+        });
+    };
 
 
 

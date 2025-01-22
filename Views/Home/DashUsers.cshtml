@@ -40,14 +40,6 @@
                     Orders
                 </a>
             </li>
-            <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashContent">
-                    <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
-                        <i class="fas fa-file-alt" style="font-size: 18px;"></i>
-                    </span>
-                    Content
-                </a>
-            </li>
             <li style="margin-bottom: 5px;" class="active">
                 <a ng-href="/Home/DashUsers">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
@@ -73,7 +65,7 @@
                 </a>
             </li>
             <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashUser">
+                <a ng-href="/Home/DashManual">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
                         <i class="fas fa-book-open" style="font-size: 18px;"></i>
                     </span>
@@ -111,7 +103,93 @@
     <div class="main-content">
         <p style="text-align: right;">Employee Dashboard</p>
         <h1 style="font-size: 2.5rem; font-weight: 600; color: #6f0d4a;  text-align: center;">
-            Users
+            Customers
+        </h1>
+        <div class="row white-text m2" ng-init="loadUsers()">
+
+            <div class="table-wrapper">
+                <table id="myTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Last Name</th>
+                            <th>First Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>User Name</th>
+                            <th>Role</th>
+                            <th>Created At</th>
+                            <th>Updated At</th>
+                            <th>Delete</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="pDATA in UsersData">
+                            <td>{{pDATA.UserID}}</td>
+                            <td>{{pDATA.LName}}</td>
+                            <td>{{pDATA.FName}}</td>
+                            <td>{{pDATA.Email}}</td>
+                            <td>{{pDATA.PhoneNum}}</td>
+                            <td>{{pDATA.UName}}</td>
+                            <td>{{pDATA.Role}}</td>
+                            <td>{{DateFormat(pDATA.CreatedAt)}}</td>
+                            <td>{{DateFormat(pDATA.UpdatedAt)}}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <p style="text-align: right;">Employee Dashboard</p>
+        <h1 style="font-size: 2.5rem; font-weight: 600; color: #6f0d4a;  text-align: center;">
+            Employees
+        </h1>
+        <div class="row white-text m2" ng-init="loadUsers()">
+
+            <div class="table-wrapper">
+                <table id="myTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Last Name</th>
+                            <th>First Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>User Name</th>
+                            <th>Role</th>
+                            <th>Created At</th>
+                            <th>Updated At</th>
+                            <th>Delete</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="pDATA in UsersData">
+                            <td>{{pDATA.UserID}}</td>
+                            <td>{{pDATA.LName}}</td>
+                            <td>{{pDATA.FName}}</td>
+                            <td>{{pDATA.Email}}</td>
+                            <td>{{pDATA.PhoneNum}}</td>
+                            <td>{{pDATA.UName}}</td>
+                            <td>{{pDATA.Role}}</td>
+                            <td>{{DateFormat(pDATA.CreatedAt)}}</td>
+                            <td>{{DateFormat(pDATA.UpdatedAt)}}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <p style="text-align: right;">Employee Dashboard</p>
+        <h1 style="font-size: 2.5rem; font-weight: 600; color: #6f0d4a;  text-align: center;">
+            Task Authorizations
         </h1>
         <div class="row white-text m2" ng-init="loadUsers()">
 
