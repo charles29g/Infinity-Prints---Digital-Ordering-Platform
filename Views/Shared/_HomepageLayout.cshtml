@@ -60,20 +60,27 @@
 
                         .nav-content .tabs .tab a:hover,
                         .nav-content .tabs .tab a:focus {
-                            transform: scale(1.1); /* Makes the tab 10% larger */
-                            transition: transform 0.1s ease; /* Smooth zoom animation */
-                            border-bottom: solid; /* Keeps the border */
+                            transform: scale(1.1);
+                            transition: transform 0.1s ease; 
+/*                            border-bottom: solid; */
                             font-weight: bold;
                         }
 
                         .nav-content .tabs .tab a.active {
-                            font-weight: bold; /* Makes the active tab bold */
-                            transform: scale(1.1); /* Keeps the active tab zoomed */
+                            font-weight: bold;
+                            transform: scale(1.1); 
                         }
 
                         .nav-content .tabs .tab a:hover {
                             transform: scale(1.1);
                         }
+
+        .tab.disabled a {
+            pointer-events: none; 
+            color: gray;
+            cursor: default; 
+            text-decoration: none; 
+        }
 
 
 
