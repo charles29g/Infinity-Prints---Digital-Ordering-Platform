@@ -645,7 +645,7 @@
 
                 passwordValidation.then(function (validationResponse) {
                     var validationData = validationResponse.data;
-
+                    console.log(pDATA.FName)
                     if (validationData.success) {
                         // Password is correct, proceed with updating user details
                         var userDataUpdate = {
@@ -657,7 +657,7 @@
                             PhoneNum: pDATA.PhoneNum
                         };
 
-                        console.log(userDataUpdate.FName + " in controller");
+                        console.log(userDataUpdate + " in controller");
 
                         var postData = IPService.UpdateSelf(userDataUpdate);
 
