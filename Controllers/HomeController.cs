@@ -40,11 +40,6 @@ namespace InfinityPrints.Controllers
             return View();
         }
 
-            public ActionResult DashContent()
-        {
-
-            return View();
-        }
         public ActionResult DashUsers()
         {
 
@@ -90,6 +85,10 @@ namespace InfinityPrints.Controllers
         public ActionResult DashPayments()
         {
 
+            return View();
+        }
+        public ActionResult DashManual()
+        {
             return View();
         }
 
@@ -657,6 +656,84 @@ namespace InfinityPrints.Controllers
         }
 
 
+
+
+
+
+        public JsonResult UpdateSelf(tbl_usersModel UserDataUpdate)
+        {
+            System.Diagnostics.Debug.WriteLine(UserDataUpdate + "Home");
+            using (InfinityPrintsContext db = new InfinityPrintsContext())
+            {
+                try
+                {
+                    var existingUserInfo = db.tbl_users.FirstOrDefault(t => t.UserID == UserDataUpdate.UserID);
+
+                    if (existingUserInfo == null)
+                    {
+                        return Json(new { success = false, message = "Tour not found" }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    existingUserInfo.FName = UserDataUpdate.FName;
+                    existingUserInfo.LName = UserDataUpdate.LName;
+                    existingUserInfo.Email = UserDataUpdate.Email;
+                    existingUserInfo.PhoneNum = UserDataUpdate.PhoneNum;
+                    existingUserInfo.UName = UserDataUpdate.UName;
+                    existingUserInfo.UpdatedAt = DateTime.Now;
+
+                    db.SaveChanges();
+                    // LogAction("Updated their own information", UserID);
+
+                    return Json(new { success = true, message = "Your account details are updated successfully" }, JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+        }
+
+
+
+
+
+        public JsonResult ValidatePassword(int userID, string password)
+        {
+            try
+            {
+
+                var salt = "InfinityPrints";  // Salt value (make sure to keep it secure and consistent)
+                bool isUserFound = false;    // Flag to track if a user is found
+
+                using (InfinityPrintsContext db = new InfinityPrintsContext())
+                {
+                    // Iterate through all users in the table
+                    foreach (var user in db.tbl_users)
+                    {
+                        // Apply MD5 hashing with salt to the entered password
+                        var hashedPassword = password.GetMD5WithSalt(salt);
+
+                        // Compare the hashed password with the stored password hash
+                        if (user.UserID == userID && user.Password == hashedPassword)
+                        {
+                            isUserFound = true;
+                            break;  // Exit loop once we find the matching user
+                        }
+                    }
+
+                    // If no matching user is found or password is incorrect
+                    if (!isUserFound)
+                        return Json(new { success = false, message = "Incorrect password or user ID." });
+                }
+
+                // If we found a user with matching userID and valid password
+                return Json(new { success = true, message = "Password validated successfully." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = $"An error occurred: {ex.Message}" });
+            }
+        }
 
 
 
