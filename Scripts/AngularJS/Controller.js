@@ -657,7 +657,7 @@
                             PhoneNum: pDATA.PhoneNum
                         };
 
-                        console.log(userDataUpdate + " in controller");
+                        console.log(userDataUpdate.FName + " in controller");
 
                         var postData = IPService.UpdateSelf(userDataUpdate);
 

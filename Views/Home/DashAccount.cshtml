@@ -101,7 +101,20 @@
             background-color: #c82333; /* Darker red on hover */
         }
 
+    .btn-green {
+        font-size: 1.2rem;
+        padding: 12px 20px;
+        background-color: #28a745; /* Green color */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        height: 60px;
+    }
 
+        .btn-green:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
 
 
     .content h2 {
@@ -237,10 +250,10 @@
         </div>
     </div>
 
-    <div class="content">
+    <div class="content" ng-init="loadUsers()">
         <h2>Account</h2>
         <hr>
-        <div ng-repeat="pDATA in UsersData | filter:{UserID: 43} ">
+        <div ng-repeat="pDATA in UsersData | filter:{UserID: 44} ">
 
             <form id="profileForm">
                 <div>
@@ -275,7 +288,7 @@
 
                 <div class="button-group">
                     <button type="button" class="btn btn-red">Delete Account</button>
-                    <button type="button" class="btn btn-success">Update Details</button>
+                    <button type="button" class="btn btn-green" ng-click="updateSelf(pDATA.UserID, pDATA.Email)">Update Details</button>
 
                 </div>
             </form>
