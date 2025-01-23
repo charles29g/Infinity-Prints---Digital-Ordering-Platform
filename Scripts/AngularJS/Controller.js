@@ -1,5 +1,7 @@
 ﻿app.controller("IPController", function ($scope, $location, IPService) {
 
+    $scope.emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
     console.log("Controller")
     $scope.loadServices = function () {
         var getData = IPService.LoadServices();

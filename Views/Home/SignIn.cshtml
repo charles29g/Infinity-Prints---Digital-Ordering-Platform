@@ -126,14 +126,16 @@
                                  ng-class="{'invalid': signUpForm.email2.$touched && (signUpForm.email2.$invalid || signUpForm.email2.$error.pattern) || signUpForm.$submitted && signUpForm.email2.$invalid}">
                                 <i class="material-icons input-icon">email</i>
                                 <input id="email2" class="input-field validate" type="email" placeholder="Email" required maxlength="60"
-                                       ng-model="email2" name="email2" />
-                                <span class="helper-text red-text"
-                                      ng-show="signUpForm.email2.$error.required && (signUpForm.email2.$touched || signUpForm.$submitted)">
-                                    Email is required.
-                                </span>
-                                <span class="helper-text red-text"
-                                      ng-show="signUpForm.email2.$error.pattern && (signUpForm.email2.$touched || signUpForm.$submitted)">
-                                    Please enter a valid Email address (e.g., user@domain.com).
+                                       ng-model="email2" name="email2" ng-pattern="emailPattern"/>
+
+                                <span class="helper-text red-text" ng-show="(signUpForm.email2.$error.required && (signUpForm.email2.$touched || signUpForm.$submitted)) ||
+                                    (signUpForm.email2.$error.pattern && (signUpForm.email2.$touched || signUpForm.$submitted))">
+                                    <span ng-show="signUpForm.email2.$error.required && (signUpForm.email2.$touched || signUpForm.$submitted)">
+                                        Email is required.
+                                    </span>
+                                    <span ng-show="signUpForm.email2.$error.email && (signUpForm.email2.$touched || signUpForm.$submitted)">
+                                        Please enter a valid Email address (e.g., user@domain.com).
+                                    </span>
                                 </span>
                             </div>
 
