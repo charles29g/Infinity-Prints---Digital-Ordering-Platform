@@ -158,7 +158,8 @@
         <h1>InfinityPrintz<br> Admin Panel</h1>
         <ul>
             <li style="margin-bottom: 5px;" class="active">
-                <a ng-href="/Home/DashAccount">
+                <a ng-href="/Home/DashAccount" ng-click="Reload()">
+
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
                         <i class="fas fa-user-circle active" style="font-size: 18px;"></i>
                     </span>
@@ -166,16 +167,16 @@
                 </a>
             </li>
             <li style="margin-bottom: 5px;" ng-show=false>
-                <a ng-href="/Home/DashBooking">
+                <a ng-href="/Home/DashBooking" ng-click="Reload()">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
                         <i class="fas fa-star" style="font-size: 18px;"></i>
                     </span>
-                    Reviews
+                    X
                 </a>
             </li>
 
             <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashService">
+                <a ng-href="/Home/DashService" ng-click="Reload()">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
                         <i class="fas fa-shopping-cart" style="font-size: 18px;"></i>
                     </span>
@@ -183,7 +184,7 @@
                 </a>
             </li>
             <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashOrders">
+                <a ng-href="/Home/DashOrders" ng-click="Reload()">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
                         <i class="fas fa-box-open" style="font-size: 18px;"></i>
                     </span>
@@ -191,7 +192,7 @@
                 </a>
             </li>
             <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashUsers">
+                <a ng-href="/Home/DashUsers" ng-click="Reload()">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
                         <i class="fas fa-users" style="font-size: 18px;"></i>
                     </span>
@@ -199,7 +200,7 @@
                 </a>
             </li>
             <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashPayments">
+                <a ng-href="/Home/DashPayments" ng-click="Reload()">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
                         <i class="fas fa-credit-card" style="font-size: 18px;"></i>
                     </span>
@@ -207,7 +208,7 @@
                 </a>
             </li>
             <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashLog">
+                <a ng-href="/Home/DashLogs" ng-click="Reload()">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
                         <i class="fas fa-comments" style="font-size: 18px;"></i>
                     </span>
@@ -215,7 +216,7 @@
                 </a>
             </li>
             <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashManual">
+                <a ng-href="/Home/DashManual" ng-click="Reload()">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
                         <i class="fas fa-book-open" style="font-size: 18px;"></i>
                     </span>
@@ -223,7 +224,7 @@
                 </a>
             </li>
             <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashStatus">
+                <a ng-href="/Home/DashStatus" ng-click="Reload()">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
                         <i class="fas fa-spinner active" style="font-size: 18px;"></i>
                     </span>
@@ -231,7 +232,7 @@
                 </a>
             </li>
             <li style="margin-bottom: 5px;">
-                <a ng-href="/Home/DashReceipt">
+                <a ng-href="/Home/DashReceipt" ng-click="Reload()">
                     <span style="display: inline-block; width: 20px; text-align: center; margin-right: 10px;">
                         <i class="fas fa-receipt" style="font-size: 18px;"></i>
                     </span>
@@ -267,7 +268,7 @@
 
                 <div class="mb-3">
                     <label for="phone" class="form-label">Phone Number</label>
-                    <input type="text" class="form-control" ng-model="pDATA.PhoneNum" />
+                    <input type="text" class="form-control" ng-model="pDATA.PhoneNum" ng-change="PhoneNum()" />
                 </div>
 
                 <div class="mb-3">
