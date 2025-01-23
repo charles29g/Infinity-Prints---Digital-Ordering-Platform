@@ -609,6 +609,22 @@
     //    });
     //};
 
+    $scope.PhoneNum = function () {
+        // Ensure that the phone number exists and doesn't already start with '0'
+        if ($scope.pDATA.PhoneNum && !$scope.pDATA.PhoneNum.startsWith('0')) {
+            // Add '0' to the beginning of the phone number
+            $scope.pDATA.PhoneNum = '0' + $scope.pDATA.PhoneNum;
+            // Manually trigger $apply to update the view
+            $scope.$apply();
+        }
+    };
+
+
+    $scope.Reload = function () {
+        $window.location.reload();
+    };
+
+    // Usage Example
 
 
     $scope.updateSelf = function (pDATA) {
